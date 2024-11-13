@@ -31,14 +31,11 @@ public class YoKaiCreature extends BaseTextProgram {
     public static void yoKaiCreature7() throws IOException {
         String[] fave = {"a", "b","c"};
         String[] hate = {"d", "e","f"};
-        UserYoKai userYoKai = new UserYoKai("test",10,10,fave,hate);
+        YoKai userYoKai = new YoKai("test",10,10,"Pizza","Sushi");
         userYoKai.addHealthToYoKai(20);
-        userYoKai.deductHealthFromYoKai(20);
-        print("health is "+userYoKai.getHealth());
-        userYoKai.addStrengthToYoKai(4);
-        print("Strength is "+userYoKai.getStrength());
-        userYoKai.increaseFriendshipValue(7);
-        userYoKai.yoKaiAsString();
+        Food chickenPizza = new Food("Chicken Pizza",20,"Sushi","Fresh chicken pizza");
+        userYoKai.Feed(chickenPizza);
+        print(userYoKai.getHealth());
         //startGame();
     } // END yoKaiCreature7
 /*

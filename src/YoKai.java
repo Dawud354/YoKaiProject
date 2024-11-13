@@ -1,19 +1,47 @@
 public class YoKai extends BaseTextProgram {
     private String name;
     private int hp;
-    final int MAX_HP = 999;
-    final int MIN_HP = 0;
+    static final int MAX_HP = 999;
+    static final int MIN_HP = 0;
     private int strength;
     private int friendshipValue;
+    private String favouriteFoodType;
+    private String dislikedFoodType;
 
     // Constructor
     //
-    YoKai(String name, int hp, int strength) {
-        this.name = name;
-        this.hp = hp;
-        this.strength = strength;
-        this.friendshipValue = 5;
+    YoKai(String name, int hp, int strength,String favouriteFoodType, String dislikedFoodType) {
+        setName(name);
+        setHp(hp);
+        setStrength(strength);
+        setFriendshipValue(friendshipValue);
+        setFavouriteFoodType(favouriteFoodType);
+        setDislikedFoodType(dislikedFoodType);
 
+    }
+
+    public void setName(String name){
+        if (isAlphanumeric(name)){
+            this.name = name;
+        }
+    }
+
+    private void setHp(int hp){
+        if (hp > MIN_HP && hp < MAX_HP){
+            this.hp = hp;
+        }
+    }
+
+    private void setStrength(int strength){
+        if(strength>0 && strength<=100){
+            this.strength = strength;
+        }
+    }
+
+    private void setFriendshipValue(int friendshipValue){
+        if(friendshipValue>0 && friendshipValue<=90){
+            this.friendshipValue = friendshipValue;
+        }
     }
 
     // shows the Yo Kai's current HP
@@ -39,7 +67,6 @@ public class YoKai extends BaseTextProgram {
         }
 
         this.friendshipValue = this.friendshipValue + increaseAmount;
-        return;
     }//END increaseFriendshipValue
 
     // deducts amount to hp
@@ -54,10 +81,9 @@ public class YoKai extends BaseTextProgram {
 
         this.hp = this.hp - damageAmount;
         // ensures health is not below min
-        if (this.hp < this.MIN_HP) {
-            this.hp = this.MIN_HP;
+        if (this.hp < MIN_HP) {
+            this.hp = MIN_HP;
         }
-        return ;
     }//END deductFromHealth
 
     // Adds amount to hp
@@ -72,10 +98,9 @@ public class YoKai extends BaseTextProgram {
 
         this.hp = this.hp + healingAmount;
         // ensures health is not over max
-        if (this.hp > this.MAX_HP) {
-            this.hp = this.MAX_HP;
+        if (this.hp > MAX_HP) {
+            this.hp = MAX_HP;
         }
-        return;
     }//END addToHealth
 
     // adds strength to user's Yo Kai
@@ -89,10 +114,52 @@ public class YoKai extends BaseTextProgram {
         }
 
         this.strength = this.strength + strengthIncrease;
-        return ;
     }//END addToStrength
 
     public String getName() {
         return name;
     }
+
+
+    @Override
+    public String toString() {
+        String text = "My name is "+this.name+" I like to eat: "+this.favouriteFoodType+" and I do not like: "+this.dislikedFoodType;
+        return text;
+    }
+
+    // Takes in string array and record and sets the yo kais favourite food to this array
+    //
+    private void setFavouriteFoodType(String foodType) {
+        if (isAlphanumeric(foodType)&& isStringInArray(Food.foodTypes, foodType)) {
+            favouriteFoodType = foodType;
+        }
+        else {
+            print("Not a valid food type");
+        }
+    } // END setFavouriteFood
+
+    // Takes in string array and record and sets the yo kais disliked food to this array
+    //
+    private void setDislikedFoodType(String foodType) {
+        if (isAlphanumeric(foodType)&& isStringInArray(Food.foodTypes, foodType)) {
+            dislikedFoodType = foodType;
+        }
+        else {
+            print("Not a valid food type.");
+        }
+    } // END setDislikedFood
+
+    public void Feed (Food food) {
+        int healing=food.getHealingPoints();
+        if (food.getFoodType().equals(favouriteFoodType)) {
+            print(this.name+" loved that");
+            healing = (int) (healing*1.2);
+        }
+        else if (food.getFoodType().equals(dislikedFoodType)) {
+            print(this.name+" did not love that");
+            healing = (int) (healing*0.8);
+        }
+        addHealthToYoKai(healing);
+    }
+
 }
