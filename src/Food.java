@@ -2,6 +2,7 @@
  * This is the food class for my project
  * @author dawud
  * @version 1.0
+ * @since 13/11/2024
  */
 public class Food extends BaseTextProgram {
 
@@ -12,7 +13,7 @@ public class Food extends BaseTextProgram {
     // need coding at later stage
     private String secondaryEffects;
     private int secondaryEffectPoints;
-    public int test;
+    public static String[] foodTypes = {"Pizza","Sushi","Fruit","Vegetable","Burger","Pasta","Chocolate"};
     /**
      *
      * @param name the name of the food

@@ -27,9 +27,16 @@ public class BaseTextProgram {
         return isValid;
     }// END isValidPositiveInt
 
-    // method to see if a string is alphanumeric
-    //
+    /**
+     *  This checks if a string passed is in alphanumeric or not
+     *
+     * @param text string passed in
+     * @return true or false depending on text input
+     */
     public static boolean isAlphanumeric(String text) {
+        if (text == null) {
+            return false;
+        }
         return text.matches("[a-zA-Z0-9]+");
     }
 
