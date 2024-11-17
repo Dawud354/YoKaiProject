@@ -1,8 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.File;
+
 /* ***************************************
   @author    Dawud Hussain
   @SID       240062901
@@ -22,20 +20,22 @@ import java.io.File;
 
 public class YoKaiCreature extends BaseTextProgram {
     // calls other methods
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         yoKaiCreature7();
     }
 
     // calls relevant methods for program to work
     //
-    public static void yoKaiCreature7() throws IOException {
-        String[] fave = {"a", "b","c"};
-        String[] hate = {"d", "e","f"};
-        YoKai userYoKai = new YoKai("test",10,10,"Pizza","Sushi");
+    public static void yoKaiCreature7() {
+
+        YoKai userYoKai = new YoKai("test",50,10,10,FoodTypes.burger,FoodTypes.crisp,YoKaiTribes.brave);
         userYoKai.addHealthToYoKai(20);
-        Food chickenPizza = new Food("Chicken Pizza",20,"Sushi","Fresh chicken pizza");
-        userYoKai.Feed(chickenPizza);
-        print(userYoKai.getHealth());
+        Food chickenPizza = new Food("Chicken Pizza",20,FoodTypes.burger,"Fresh chicken pizza");
+        print(chickenPizza.getName());
+        print(chickenPizza.getFoodTypeString());
+        print(chickenPizza.getHealingPoints());
+        userYoKai.feed(chickenPizza);
+        print(userYoKai.getTribe());
         //startGame();
     } // END yoKaiCreature7
 /*
