@@ -31,7 +31,7 @@ public class BaseTextProgram {
      *  This checks if a string passed is in alphanumeric or not
      *
      * @param text string passed in
-     * @return true or false depending on text input
+     * @return true if string is alphanumeric
      */
     public static boolean isAlphanumeric(String text) {
         if (text == null) {
