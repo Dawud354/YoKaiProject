@@ -1,25 +1,31 @@
+package YoKaiCode;
+
+import Items.Food;
+import Items.FoodTypes;
+
+
 /**
- * This class is used to feed the YoKai
+ * This class is used to feed the YoKaiCode.YoKai
  * @version 1.0
  * @since 19/11/2024
  * @see YoKai
  * @see Food
  * @author dawud
  */
-public class FoodPreferences extends BaseTextProgram {
+public class FoodPreferences{
     private FoodTypes favouriteFood;
     private FoodTypes dislikedFood;
 
     /**
      * @since 1.0
      * Constructor for the class
-     * @param favouriteFood the favourite food of the YoKai
-     * @param leastFavouriteFood the least favourite food of the YoKai
+     * @param favouriteFood the favourite food of the YoKaiCode.YoKai
+     * @param leastFavouriteFood the least favourite food of the YoKaiCode.YoKai
      */
     FoodPreferences(FoodTypes favouriteFood, FoodTypes leastFavouriteFood){
         setFavouriteFoodType(favouriteFood);
         setDislikedFoodType(leastFavouriteFood);
-    } // END FoodPreferences
+    } // END YoKaiCode.FoodPreferences
 
     /**
      * @since 1.0

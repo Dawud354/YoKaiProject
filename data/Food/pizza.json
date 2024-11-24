@@ -1,0 +1,6 @@
+{
+  "name": "Pizza",
+  "healingPoints": 15,
+  "description": "a tasty pizza",
+  "foodType": "pizza"
+}

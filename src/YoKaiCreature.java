@@ -1,5 +1,7 @@
 
-import java.io.IOException;
+import FileManagement.FoodManager;
+import GeneralMethods.BaseTextProgram;
+import Items.Food;
 
 /* ***************************************
   @author    Dawud Hussain
@@ -28,8 +30,10 @@ public class YoKaiCreature extends BaseTextProgram {
     //
     public static void yoKaiCreature7() {
 
-        YoKai jibanyan = YoKaiManager.loadYoKai("jibanyan.json");
-        print(jibanyan.toString());
+        Food burger = FoodManager.loadFood("burger");
+        Food pizza = FoodManager.loadFood("pizza");
+        print(burger.toString());
+        print(pizza.toString());
         //startGame();
     } // END yoKaiCreature7
 /*
@@ -75,7 +79,7 @@ public class YoKaiCreature extends BaseTextProgram {
         explainProgramToUser();
         String filePath = "src/userYoKai.csv";
         int day =1;
-        YoKai yoKai;
+        YoKaiCode.YoKai yoKai;
         // checks if save file exists and asks user if they want to load it
         if (askUserToLoad(filePath)) {
             yoKai = loadYoKai(filePath);
@@ -105,14 +109,14 @@ public class YoKaiCreature extends BaseTextProgram {
     } // End startGame
 
     // gets user input to create yo kai record
-    public static YoKai getUserInputToMakeYoKai() {
+    public static YoKaiCode.YoKai getUserInputToMakeYoKai() {
         String name;
         int hp = 100;
         int strength = 10;
 
         // sets yo kais details
         name = askName();
-        YoKai yoKai = createYoKai(name, hp, strength);
+        YoKaiCode.YoKai yoKai = createYoKai(name, hp, strength);
         yoKai = FavouriteFood(yoKai);
         yoKai = DislikedFood(yoKai);
         return yoKai;
@@ -195,7 +199,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // Takes in record and asks user what food the Yo Kai likes
     //
-    public static YoKai FavouriteFood(YoKai yoKai) {
+    public static YoKaiCode.YoKai FavouriteFood(YoKaiCode.YoKai yoKai) {
         final String name = getYoKaiName(yoKai);
         String[] favouriteFood = new String[3];
         print("What food does " + name + " like? Please enter 3");
@@ -210,7 +214,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // Takes in record and asks user what food the Yo Kai does not like
     //
-    public static YoKai DislikedFood(YoKai yoKai) {
+    public static YoKaiCode.YoKai DislikedFood(YoKaiCode.YoKai yoKai) {
         final String name = getYoKaiName(yoKai);
         String[] dislikedFood = new String[3];
         print("What food does " + name + " not like? Please enter 3");
@@ -228,7 +232,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // allows user to heal the Yo Kai
     //
-    public static YoKai feed(YoKai yoKai) {
+    public static YoKaiCode.YoKai feed(YoKaiCode.YoKai yoKai) {
         print("What will you feed " + yoKai.name + "?");
         String food = inputString();
 
@@ -249,9 +253,9 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // allows user to fight other Yo Kai
     //
-    public static YoKai fight(YoKai yoKai) throws IOException {
+    public static YoKaiCode.YoKai fight(YoKaiCode.YoKai yoKai) throws IOException {
         // opens csv file and loads enemy yo kais
-        YoKai[] yoKais = loadEnemyYoKai();
+        YoKaiCode.YoKai[] yoKais = loadEnemyYoKai();
 
         // gets random yo kai to fight
         final int randomElement = randomInt(0, yoKais.length);
@@ -261,12 +265,12 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // loads enemy yo kai from csv file
     //
-    public static YoKai[] loadEnemyYoKai() throws IOException {
+    public static YoKaiCode.YoKai[] loadEnemyYoKai() throws IOException {
         // open file and create array
         String path = "src/yoKai.csv";
         BufferedReader br = new BufferedReader(new FileReader(path));
         int yoKaiNumber=rowsInCSV(path);
-        YoKai[] yoKais = new YoKai[yoKaiNumber];
+        YoKaiCode.YoKai[] yoKais = new YoKaiCode.YoKai[yoKaiNumber];
 
         // loads data from csv passing to create yo kai method
         String line = br.readLine();
@@ -283,7 +287,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // allows user to train their Yo Kai
     //
-    public static YoKai train(YoKai yoKai) {
+    public static YoKaiCode.YoKai train(YoKaiCode.YoKai yoKai) {
         print(yoKai.name + " is doing 10 laps");
         print(yoKai.name + " increased their strength by 3");
         yoKai = addStrengthToYoKai(yoKai, 3);
@@ -293,7 +297,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // allows user to play with their Yo Kai
     //
-    public static YoKai play(YoKai yoKai) {
+    public static YoKaiCode.YoKai play(YoKaiCode.YoKai yoKai) {
         print("You took " + yoKai.name + " to the park.");
         print(yoKai.name + " seemed to look at you with more affection");
         yoKai = increaseFriendshipValue(yoKai, 3);
@@ -303,7 +307,7 @@ public class YoKaiCreature extends BaseTextProgram {
 
     // takes in two yo kai records and makes them fight
     //
-    public void twoYoKaiFight(YoKai enemy) {
+    public void twoYoKaiFight(YoKaiCode.YoKai enemy) {
         print(this.name + " is now fighting " + enemy.name);
 
         while (this.hp > 0 && enemy.hp > 0) {

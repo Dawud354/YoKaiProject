@@ -1,3 +1,5 @@
+package Items;
+
 /**
  * Enum class for the food types.
  * @author dawud

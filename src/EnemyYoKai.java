@@ -1,2 +1,2 @@
-//public class EnemyYoKai extends YoKai {
+//public class EnemyYoKai extends YoKaiCode.YoKai {
 //}

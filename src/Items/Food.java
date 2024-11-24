@@ -1,3 +1,5 @@
+package Items;
+import GeneralMethods.BaseTextProgram;
 /**
  * This is the food class for my project
  * @author dawud
@@ -9,7 +11,7 @@ public class Food extends BaseTextProgram {
     private String name;
     private int healingPoints;
     private String description;
-    public  FoodTypes foodType;
+    public FoodTypes foodType;
 
     /**
      * @since 1.0
@@ -24,7 +26,7 @@ public class Food extends BaseTextProgram {
         setHealingPoints(healingPoints);
         setFoodType(foodType);
         setDescription(description);
-    } // end Food
+    } // end Items.Food
 
     /**
      * @since 1.0
@@ -41,7 +43,7 @@ public class Food extends BaseTextProgram {
      * @param name new name of food
      */
     public void setName(String name) {
-        if (!isAlphanumeric(name)) {
+        if (!BaseTextProgram.isAlphanumeric(name)) {
             throw new IllegalArgumentException("Name must be alphanumeric");
         }
         this.name = name;
@@ -66,7 +68,7 @@ public class Food extends BaseTextProgram {
             this.healingPoints = healingPoints;
         }
         else {
-            print("Healing points must be between 1 and 999. Defaulting to 0");
+            BaseTextProgram.print("Healing points must be between 1 and 999. Defaulting to 0");
             this.healingPoints = 0;
         }
     } // end setHealingPoints
@@ -92,7 +94,7 @@ public class Food extends BaseTextProgram {
      */
     public void setFoodType(FoodTypes foodType) {
         if (foodType == null ) {
-            throw new IllegalArgumentException("Food type cannot be null");
+            throw new IllegalArgumentException("Items.Food type cannot be null");
         }
         this.foodType = foodType;
     } // end setFoodType
@@ -112,10 +114,10 @@ public class Food extends BaseTextProgram {
      * @param description description of the food
      */
     public void setDescription(String description) {
-        if (!isAlphanumeric(description) && description.length() > 200) {
+        if (!BaseTextProgram.isAlphanumeric(description) && description.length() > 200) {
             throw new IllegalArgumentException("Description must be alphanumeric and less than 200 characters");
         }
         this.description = description;
     } // end setDescription
 
-} // end Food
+} // end Items.Food

@@ -1,10 +1,13 @@
+import YoKaiCode.YoKai;
+import YoKaiCode.YoKaiTribes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Team class that holds the users current team. It allows the user to have a team of 3 YoKai
+ * Team class that holds the users current team. It allows the user to have a team of 3 YoKaiCode.YoKai
  * @see YoKai
  * @author dawud
  * @version 1.0
@@ -30,7 +33,7 @@ public class Team {
     /**
      * @since 1.0
      * Constructor for the class
-     * @param team array of YoKai
+     * @param team array of YoKaiCode.YoKai
      */
     Team(YoKai[] team){
         for (YoKai yoKai : team) {
@@ -48,9 +51,9 @@ public class Team {
 
     /**
      * @since 1.0
-     * Add a YoKai to the team
+     * Add a YoKaiCode.YoKai to the team
      * Then checks if the team is full and sets the team bonus
-     * @param yoKai the YoKai to add
+     * @param yoKai the YoKaiCode.YoKai to add
      */
     public void addYoKai(YoKai yoKai){
         if (team!=null && team.size() < MAX_TEAM_SIZE){
@@ -62,8 +65,8 @@ public class Team {
 
     /**
      * @since 1.0
-     * Remove a YoKai from the team and clears bonus from team members AND removed yo kai
-     * @param yoKai the YoKai to remove
+     * Remove a YoKaiCode.YoKai from the team and clears bonus from team members AND removed yo kai
+     * @param yoKai the YoKaiCode.YoKai to remove
      */
     public void removeYoKai(YoKai yoKai){
         if (team.contains(yoKai)){
@@ -84,7 +87,7 @@ public class Team {
 
     /**
      * @since 1.0
-     * Checks if all 3 YoKai in the team are from the same tribe
+     * Checks if all 3 YoKaiCode.YoKai in the team are from the same tribe
      * If so sets the currentTeamBonus to the tribe
      */
     public void setTeamBonus(){

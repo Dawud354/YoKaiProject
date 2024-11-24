@@ -1,3 +1,5 @@
+package YoKaiCode;
+
 /**
  * Enum class for the different tribes of Yo-Kai.
  * @author dawud

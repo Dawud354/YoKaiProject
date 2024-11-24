@@ -1,3 +1,8 @@
+package YoKaiCode;
+
+import Items.Food;
+import Items.FoodTypes;
+import GeneralMethods.BaseTextProgram;
 /**
  * This is the Yo Kai class for my program
  * @author dawud
@@ -38,7 +43,7 @@ public class YoKai extends BaseTextProgram {
         foodPreferences = new FoodPreferences(favouriteFoodType, dislikedFoodType);
         setTribe(tribe);
 
-    } // END YoKai
+    } // END YoKaiCode.YoKai
 
     /**
      * @param name new name of Yo Kai
@@ -46,7 +51,7 @@ public class YoKai extends BaseTextProgram {
      * Set the name of the Yo Kai. Checks if it is alphanumeric
      */
     private void setName(String name) {
-        if (isAlphanumeric(name)) {
+        if (BaseTextProgram.isAlphanumeric(name)) {
             this.name = name;
         } else {
             throw new IllegalArgumentException("Name must be alphanumeric");
@@ -75,7 +80,7 @@ public class YoKai extends BaseTextProgram {
 
 
     /**
-     * @param food Food object to pass in
+     * @param food Items.Food object to pass in
      * @throws IllegalArgumentException if food is null
      * @since 1.0
      * Changes healing amount depending on whether Yo Kai likes the food or not
@@ -86,13 +91,13 @@ public class YoKai extends BaseTextProgram {
         }
         int healing = food.getHealingPoints();
         if (foodPreferences.likesFood(food.getFoodType())) {
-            print(this.name + " loved that");
+            BaseTextProgram.print(this.name + " loved that");
             healing = (int) (healing * 1.2);
         } else if (foodPreferences.dislikesFood(food.getFoodType())) {
-            print(this.name + " did not like that");
+            BaseTextProgram.print(this.name + " did not like that");
             healing = (int) (healing * 0.8);
         } else {
-            print(this.name + " found the food o.k");
+            BaseTextProgram.print(this.name + " found the food o.k");
         }
         health.adjustCurrentHP(healing);
     }// END Feed

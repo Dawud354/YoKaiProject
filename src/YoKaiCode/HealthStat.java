@@ -1,3 +1,5 @@
+package YoKaiCode;
+
 public class HealthStat{
 
     final private Stat maxHP, currentHP;

@@ -1,3 +1,5 @@
+package YoKaiCode;
+
 /**
  * Represents a simple stat that has a base value and a temporary modifier.
  * The final value of the stat is the sum of the base value and the temporary modifier.
@@ -16,11 +18,11 @@ public class Stat {
      */
     public Stat(int initialValue) {
         if (initialValue < 0) {
-            throw new IllegalArgumentException("Stat value cannot be negative.");
+            throw new IllegalArgumentException("YoKaiCode.Stat value cannot be negative.");
         }
         this.baseValue = initialValue;
         this.temporaryModifier = 0;
-    } // END Stat
+    } // END YoKaiCode.Stat
 
     /**
      * Get the final value of the stat.
@@ -37,7 +39,7 @@ public class Stat {
      */
     public void setValue(int value) {
         if (value < 0) {
-            throw new IllegalArgumentException("Stat value cannot be negative.");
+            throw new IllegalArgumentException("YoKaiCode.Stat value cannot be negative.");
         }
         baseValue = value;
     } // END setValue
