@@ -7,7 +7,7 @@
  */
 public class Stat {
     private int baseValue;
-    private int temporaryModifier; // For buffs or debuffs
+    private transient int temporaryModifier; // For buffs or debuffs
 
     /**
      * Constructor for the class.

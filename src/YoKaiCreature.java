@@ -28,13 +28,8 @@ public class YoKaiCreature extends BaseTextProgram {
     //
     public static void yoKaiCreature7() {
 
-        YoKai yoKai1 = new YoKai("test",50,10,0,0,0,15,20,FoodTypes.burger,FoodTypes.crisp,YoKaiTribes.heartful);
-        YoKai yoKai2 = new YoKai("test2",50,10,0,0,0,15,20,FoodTypes.burger,FoodTypes.crisp,YoKaiTribes.heartful);
-        YoKai yoKai3 = new YoKai("test3",50,10,0,0,0,15,20,FoodTypes.burger,FoodTypes.crisp,YoKaiTribes.brave);
-        YoKai yoKai4 = new YoKai("test4",50,10,0,0,0,15,20,FoodTypes.burger,FoodTypes.crisp,YoKaiTribes.brave);
-        YoKai[] team = {yoKai1,yoKai2,yoKai3};
-        Team team1 = new Team(team);
-        team1.addYoKai(yoKai4);
+        YoKai jibanyan = YoKaiManager.loadYoKai("jibanyan.json");
+        print(jibanyan.toString());
         //startGame();
     } // END yoKaiCreature7
 /*

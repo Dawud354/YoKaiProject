@@ -1,0 +1,31 @@
+{
+  "name": "Jibanyan",
+  "tribe": "charming",
+  "health": {
+    "maxHP": {
+      "baseValue": 50
+    },
+    "currentHP": {
+      "baseValue": 40
+    }
+  },
+  "strength": {
+    "baseValue": 10
+  },
+  "spirit": {
+    "baseValue": 10
+  },
+  "speed": {
+    "baseValue": 20
+  },
+  "defence": {
+    "baseValue": 8
+  },
+  "friendshipValue": {
+    "baseValue": 10
+  },
+  "foodPreferences": {
+    "favouriteFood": "chocolate",
+    "dislikedFood": "vegetable"
+  }
+}

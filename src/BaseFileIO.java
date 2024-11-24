@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class BaseFileIOTextProgram extends BaseTextProgram{
+public class BaseFileIO{
     // Counts how much rows are in a csv
     //
     public static int rowsInCSV(String filePath) throws IOException {

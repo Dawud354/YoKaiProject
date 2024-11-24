@@ -1,7 +1,7 @@
 public class HealthStat{
 
     final private Stat maxHP, currentHP;
-    final int BASE_MAX_HP = 999;
+    private transient final int BASE_MAX_HP = 999;
 
     HealthStat(int maxHP, int currentHP) {
         currentHP = Math.min(currentHP, maxHP);
