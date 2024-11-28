@@ -60,6 +60,37 @@ public class BaseTextProgram {
 
     } //END inputPositiveInt
 
+    // method to get double from user
+    //
+    public static double inputPositiveDouble() {
+        String numText;
+        double num;
+        // checks if user inputted number
+        // keeps looping until user does
+        numText = inputString();
+        while (!isValidPositiveDouble(numText)) {
+            print("Please enter a positive double");
+            numText = inputString();
+
+        }
+        num = Double.parseDouble(numText);
+        return num;
+
+    } //END inputPositiveDouble
+
+    // method to see if a string is a positive double
+    //
+    public static boolean isValidPositiveDouble(String numText) {
+        boolean isValid = true;
+        for (int i = 0; i < numText.length(); i++) {
+            // goes though each character in string to check if it is not a digit
+            if (!Character.isDigit(numText.charAt(i)) && numText.charAt(i) != '.') {
+                isValid = false;
+            }
+        }
+        return isValid;
+    }// END isValidPositiveDouble
+
     // returns a random int between the 2 values passed in
     //
     public static int randomInt(int lowBound, int highBound) {

@@ -1,7 +1,10 @@
 
 import FileManagement.FoodManager;
+import FileManagement.YoKaiManager;
 import GeneralMethods.BaseTextProgram;
-import Items.Food;
+import Items.*;
+import Inventory.*;
+import YoKaiCode.YoKai;
 
 /* ***************************************
   @author    Dawud Hussain
@@ -20,22 +23,28 @@ import Items.Food;
    ****************************************/
 
 
-public class YoKaiCreature extends BaseTextProgram {
+public class Main extends BaseTextProgram {
     // calls other methods
     public static void main(String[] args)  {
-        yoKaiCreature7();
+        YoKai yoKai = YoKaiManager.loadYoKai("Jibanyan");
+        Food apple = FoodManager.loadFood("apple");
+        Food chocolate = FoodManager.loadFood("chocolate");
+        Food burger = FoodManager.loadFood("burger");
+        Inventory inventoryList = new Inventory();
+        inventoryList.addItem(burger,10);
+        inventoryList.addItem(apple,10);
+        inventoryList.addItem(chocolate,10);
+        print(inventoryList.toString());
+        inventoryList.addItem(apple,10);
+        print(inventoryList.toString());
+        inventoryList.removeItem(apple,5);
+        print(inventoryList.toString());
+        inventoryList.removeItem(apple,20);
+        print(inventoryList.toString());
+        inventoryList.removeItem(apple,5);
     }
 
-    // calls relevant methods for program to work
-    //
-    public static void yoKaiCreature7() {
 
-        Food burger = FoodManager.loadFood("burger");
-        Food pizza = FoodManager.loadFood("pizza");
-        print(burger.toString());
-        print(pizza.toString());
-        //startGame();
-    } // END yoKaiCreature7
 /*
     // checks if the save file exists
     //
