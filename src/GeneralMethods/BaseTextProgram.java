@@ -42,6 +42,17 @@ public class BaseTextProgram {
         return text.matches("[a-zA-Z0-9]+");
     }
 
+    /**
+     * Checks if a string passed in follows basic english grammar
+     * @return true if string is in english
+     */
+    public static boolean isValidSentence(String text) {
+        if (text == null) {
+            return false;
+        }
+        return text.matches("[a-zA-Z0-9 !?.,']+");
+    }
+
     // method to get int from user
     //
     public static int inputPositiveInt() {

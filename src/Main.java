@@ -5,6 +5,8 @@ import GeneralMethods.BaseTextProgram;
 import Items.*;
 import Inventory.*;
 import YoKaiCode.YoKai;
+import java.util.HashMap;
+import java.util.Map;
 
 /* ***************************************
   @author    Dawud Hussain
@@ -26,22 +28,19 @@ import YoKaiCode.YoKai;
 public class Main extends BaseTextProgram {
     // calls other methods
     public static void main(String[] args)  {
-        YoKai yoKai = YoKaiManager.loadYoKai("Jibanyan");
-        Food apple = FoodManager.loadFood("apple");
-        Food chocolate = FoodManager.loadFood("chocolate");
-        Food burger = FoodManager.loadFood("burger");
-        Inventory inventoryList = new Inventory();
-        inventoryList.addItem(burger,10);
-        inventoryList.addItem(apple,10);
-        inventoryList.addItem(chocolate,10);
-        print(inventoryList.toString());
-        inventoryList.addItem(apple,10);
-        print(inventoryList.toString());
-        inventoryList.removeItem(apple,5);
-        print(inventoryList.toString());
-        inventoryList.removeItem(apple,20);
-        print(inventoryList.toString());
-        inventoryList.removeItem(apple,5);
+        // Create the stat modifiers for the equipment
+        Map<String, Integer> statModifiers = new HashMap<>();
+        statModifiers.put("attack", 15);  // Increases attack by 15
+        statModifiers.put("speed", 10);  // Increases speed by 10
+
+        // Create the Equipment object
+        Equipment swordOfSpeed = new Equipment("Sword of Speed", statModifiers,
+                "A sharp blade that enhances both attack and speed.");
+
+        // Display the equipment's details
+        System.out.println("Name: " + swordOfSpeed.getName());
+        System.out.println("Description: " + swordOfSpeed.getDescription());
+        System.out.println("Stat Modifiers: " + swordOfSpeed.getStatModifiers());
     }
 
 

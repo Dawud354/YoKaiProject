@@ -29,7 +29,7 @@ public abstract class BaseItem {
      * @param name new name of food
      */
     public void setName(String name) {
-        if (!BaseTextProgram.isAlphanumeric(name)) {
+        if (!BaseTextProgram.isValidSentence(name)) {
             throw new IllegalArgumentException("Name must be alphanumeric");
         }
         this.name = name;
@@ -58,7 +58,7 @@ public abstract class BaseItem {
      * @param description description of the food
      */
     public void setDescription(String description) {
-        if (!BaseTextProgram.isAlphanumeric(description) && description.length() > 200) {
+        if (!BaseTextProgram.isValidSentence(description) && description.length() > 200) {
             throw new IllegalArgumentException("Description must be alphanumeric and less than 200 characters");
         }
         this.description = description;

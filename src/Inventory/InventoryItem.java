@@ -12,7 +12,7 @@ public class InventoryItem {
     private BaseItem item;
     private int quantity;
     public final int MAX_QUANTITY = 99;
-    private boolean isEmpty = false;
+    private final boolean isStackable;
 
     /**
      * @since 1.0
@@ -20,9 +20,10 @@ public class InventoryItem {
      * @param item the item to store
      * @param quantity the quantity of the item
      */
-    public InventoryItem(BaseItem item, int quantity) {
+    public InventoryItem(BaseItem item, int quantity, boolean isStackable) {
         setItem(item);
         setQuantity(quantity);
+        this.isStackable = isStackable;
     } // END InventoryItem
 
     /**
@@ -54,10 +55,15 @@ public class InventoryItem {
      * @since 1.0
      * Set the quantity. Quantity cannot be negative.
      * @param quantity the quantity to set
+     * @throws IllegalArgumentException if quantity is negative
+     * @throws IllegalArgumentException if quantity is more than 1 for non-stackable items
      */
     private void setQuantity(int quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException("Quantity cannot be negative.");
+        }
+        else if (!isStackable && quantity > 1) {
+            throw new IllegalArgumentException("Quantity cannot be more than 1 for non-stackable items.");
         }
         else if (quantity > MAX_QUANTITY) {
             quantity = MAX_QUANTITY;
@@ -69,6 +75,7 @@ public class InventoryItem {
      * @since 1.0
      * Increase quantity. If amount is negative, throw exception.
      * @param amount the amount to add
+     * @throws IllegalArgumentException if amount is negative
      */
     public void addQuantity(int amount) {
         if (amount < 0) {
@@ -84,6 +91,7 @@ public class InventoryItem {
      * @since 1.0
      * Decrease quantity. If amount is negative or more than available quantity, throw exception.
      * @param amount the amount to remove
+     * @throws IllegalArgumentException if amount is negative
      */
     public void removeQuantity(int amount) {
         if (amount < 0) {
@@ -91,7 +99,6 @@ public class InventoryItem {
         }
         if (amount > this.quantity) {
             this.quantity = 0;
-            isEmpty = true;
         }
         this.quantity -= amount;
     } // END removeQuantity
@@ -106,10 +113,10 @@ public class InventoryItem {
 
     /**
      * @since 1.0
-     * gets the value of isEmpty
-     * @return isEmpty
+     * gets the value of isStackable
+     * @return the value of isStackable
      */
-    public boolean isEmpty() {
-        return isEmpty;
+    public boolean isStackable() {
+        return isStackable;
     } // END isEmpty
 }

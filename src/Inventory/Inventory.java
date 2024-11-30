@@ -38,22 +38,28 @@ public class Inventory {
      * Add an item to the inventory
      * @param item the item to add
      * @param quantity the quantity of the item
-     * @return true if the item was added, false if the inventory is full
+     * @return true if the item was added, false if not added
      */
-    public boolean addItem(BaseItem item, int quantity) {
+    public InventoryStatus addItem(BaseItem item, int quantity, boolean isStackable) {
         if (items.size() >= MAX_ITEMS) {
-            return false;
+            return InventoryStatus.MAX_ITEMS_REACHED;
+        }
+        else if (quantity < 1) {
+            return InventoryStatus.INVALID_QUANTITY;
+        }
+        else if (quantity > 1 && !isStackable) {
+            return InventoryStatus.NON_STACKABLE_QUANTITY;
         }
 
         for (InventoryItem inventoryItem : items) {
             if (inventoryItem.getItem().equals(item)) {
                 inventoryItem.addQuantity(quantity);
-                return true;
+                return InventoryStatus.SUCCESS;
             }
         }
 
-        items.add(new InventoryItem(item, quantity));
-        return true;
+        items.add(new InventoryItem(item, quantity, isStackable));
+        return InventoryStatus.SUCCESS;
     }
 
     /**
@@ -63,7 +69,7 @@ public class Inventory {
      * @param quantity the quantity of the item to remove
      * @return true if the item was removed, false if the item was not found
      */
-    public boolean removeItem(BaseItem item, int quantity) {
+    public InventoryStatus removeItem(BaseItem item, int quantity) {
         for (InventoryItem inventoryItem : items) {
             if (inventoryItem.getItem().equals(item)) {
                 // If the quantity to remove is more than the quantity in the inventory, removes all the quantity
@@ -77,10 +83,10 @@ public class Inventory {
                     items.remove(inventoryItem);
                 }
                 // exists the loop if found item to remove
-                return true;
+                return InventoryStatus.SUCCESS;
             }
         }
-        return false;
+        return InventoryStatus.ITEM_NOT_FOUND;
     }
 
     /**
