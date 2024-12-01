@@ -4,12 +4,13 @@ package YoKaiCode;
  * Represents a simple stat that has a base value and a temporary modifier.
  * The final value of the stat is the sum of the base value and the temporary modifier.
  * @author dawud
- * @version 1.0
- * @since 20/11/2024
+ * @version 1.1
+ * @since 01/12/2024
  */
 public class Stat {
     private int baseValue;
     private transient int temporaryModifier; // For buffs or debuffs
+    private static int  MAX_VALUE = 999;
 
     /**
      * Constructor for the class.
@@ -25,11 +26,18 @@ public class Stat {
     } // END YoKaiCode.Stat
 
     /**
-     * Get the final value of the stat.
+     * Get the final value of the stat. Returns 0 is the stat is negative.
      * @return the final value of the stat
      */
     public int getValue() {
-        return baseValue + temporaryModifier;
+        int value = baseValue + temporaryModifier;
+        if (value < 0) {
+            value = 0;
+        }
+        if (value > MAX_VALUE) {
+            value = MAX_VALUE;
+        }
+        return value;
     } // END getValue
 
     /**
