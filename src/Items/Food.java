@@ -25,9 +25,6 @@ public class Food extends BaseItem {
         setFoodType(foodType);
     } // end Items.Food
 
-
-
-
     /**
      * @since 1.0
      * @return healingPoints
@@ -61,9 +58,14 @@ public class Food extends BaseItem {
         return foodType;
     } // end getFoodType
 
-    public String getFoodTypeString() {
-        return foodType.toString();
-    }
+    /**
+     * @since 1.0
+     * @return a string representation of the food object
+     */
+    @Override
+    public String toString() {
+        return "Name: " + getName() + "\nDescription: " + getDescription() + "\nHealing Points: " + healingPoints + "\nFood Type: " + foodType;
+    } // end toString
 
     /**
      * @since 1.0

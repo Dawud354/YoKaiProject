@@ -8,7 +8,7 @@ import java.io.File;
  * @version 1.0
  * @since 24/11/2024
  */
-public class FileIOManager {
+public class FileIOManager<T> {
 
     // Base directory for all game files
     private static final String BASE_DIRECTORY = "data";
@@ -42,4 +42,14 @@ public class FileIOManager {
 
         return directoryPath + File.separator + fileName;
     } // END getFilePath
+
+    public void save(String name, T object) {
+        String filePath = getFilePath(object.getClass().getSimpleName().toLowerCase(), name);
+        JsonUtil.saveToJsonFile(filePath, object);
+    }
+
+    public T load(String name, Class<T> objectClass) {
+        String filePath = getFilePath(objectClass.getSimpleName().toLowerCase(), name);
+        return JsonUtil.loadFromJsonFile(filePath, objectClass);
+    }
 }

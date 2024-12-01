@@ -25,10 +25,10 @@ public class JsonUtil {
      * @param <T> the type of the object
      */
     public static <T> void saveToJsonFile(String filePath, T object) {
-        if(filePath == null) {
-            throw new IllegalArgumentException("File path cannot be null.");
+        if(filePath == null|| object == null) {
+            throw new IllegalArgumentException("File path and object cannot be null.");
         }
-        filePath = normaliseFileName(filePath);
+        filePath = checkJsonFileName(filePath);
         try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(object, writer);
             System.out.println("Saved to " + filePath);
@@ -46,10 +46,10 @@ public class JsonUtil {
      * @param <T> the type of the object
      */
     public static <T> T loadFromJsonFile(String filePath, Class<T> classType) {
-        if(filePath == null) {
-            throw new IllegalArgumentException("File path cannot be null.");
+        if(filePath == null|| classType == null) {
+            throw new IllegalArgumentException("File path and class type cannot be null.");
         }
-        filePath = normaliseFileName(filePath);
+        filePath = checkJsonFileName(filePath);
         try (FileReader reader = new FileReader(filePath)) {
             return gson.fromJson(reader, classType);
         } catch (IOException e) {
@@ -67,6 +67,27 @@ public class JsonUtil {
     public static boolean isValidJsonFileName(String fileName) {
         return fileName!=null && fileName.matches("^[a-zA-Z0-9_\\-]+\\.json$");
     } // END isValidJsonFileName
+
+    /**
+     * @since 1.0
+     * Check if a file name is valid for a JSON file. Adds .json extension if missing.
+     * Then checks if still invalid and if so, throws an exception.
+     * @param fileName the file name to check
+     * @return the checked file name
+     */
+    private static String checkJsonFileName(String fileName) {
+        if (fileName == null) {
+            throw new IllegalArgumentException("File name cannot be null.");
+        }
+        if(!fileName.endsWith(".json")) {
+            fileName += ".json";
+        }
+        if (isValidJsonFileName(fileName)) {
+            throw new IllegalArgumentException("Invalid file name.");
+        }
+        fileName = normaliseFileName(fileName);
+        return fileName;
+    } // END checkJsonFileName
 
     /**
      * @since 1.0

@@ -3,16 +3,18 @@ package YoKaiCode;
 import Items.Food;
 import Items.FoodTypes;
 import GeneralMethods.BaseTextProgram;
+import Items.Equipment;
+
+import java.util.Map;
+
 /**
  * This is the Yo Kai class for my program
  * @author dawud
- * @version 1.1
- * @since 16/11/2024
+ * @version 1.2
+ * @since 20/11/2024
  */
 public class YoKai extends BaseTextProgram {
     private String name;
-    private FoodTypes favouriteFoodType;
-    private FoodTypes dislikedFoodType;
     private YoKaiTribes tribe;
     private final HealthStat health;
     private final Stat strength;
@@ -21,6 +23,7 @@ public class YoKai extends BaseTextProgram {
     private final Stat defence;
     private final Stat friendshipValue;
     private final FoodPreferences foodPreferences;
+    private Equipment equipment;
 
     /**
      * @param name              name of the Yo Kai
@@ -77,6 +80,14 @@ public class YoKai extends BaseTextProgram {
         String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.I like to eat: " + foodPreferences.getFavouriteFood() + " and I do not like: " + foodPreferences.getDislikedFood();
         return text;
     } // End toString
+
+    /**
+     * @return stats of yo kai
+     */
+    public String statsToString(){
+        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy stats are:\nHP: " + health.getCurrentHP() + "/" + health.getMaxHP() + "\nStrength: " + strength.getValue() + "\nSpirit: " + spirit.getValue() + "\nSpeed: " + speed.getValue() + "\nDefence: " + defence.getValue() + "\nFriendship Value: " + friendshipValue.getValue();
+        return text;
+    } // End statsToString
 
 
     /**
@@ -183,7 +194,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @return the spirit
-     * @since 1.0
      */
     public int getSpirit() {
         return spirit.getValue();
@@ -191,17 +201,14 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @param amount the amount to adjust the spirit by
-     * @since 1.0
      * Adjusts the spirit of the Yo Kai by the given amount
      */
     public void adjustSpirit(int amount) {
         spirit.increase(amount);
     } // END adjustSpirit
 
-
     /**
      * @return the speed
-     * @since 1.0
      */
     public int getSpeed() {
         return speed.getValue();
@@ -209,7 +216,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @param amount the amount to adjust the speed by
-     * @since 1.0
      * Adjusts the speed of the Yo Kai by the given amount
      */
     public void adjustSpeed(int amount) {
@@ -218,7 +224,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @return the defence
-     * @since 1.0
      */
     public int getDefence() {
         return defence.getValue();
@@ -226,7 +231,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @param amount the amount to adjust the defence by
-     * @since 1.0
      * Adjusts the defence of the Yo Kai by the given amount
      */
     public void adjustDefence(int amount) {
@@ -236,7 +240,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @return the friendship value
-     * @since 1.0
      */
     public int getFriendshipValue() {
         return friendshipValue.getValue();
@@ -244,7 +247,6 @@ public class YoKai extends BaseTextProgram {
 
     /**
      * @param amount the amount to increase the friendship value by
-     * @since 1.0
      * increases the friendship value of the Yo Kai by the given amount
      */
     public void increaseFriendshipValue(int amount) {
@@ -252,7 +254,6 @@ public class YoKai extends BaseTextProgram {
     } // END increaseFriendshipValue
 
     /**
-     * @since 1.0
      * temporary increase in strength
      * @param amount to increase strength by
      */
@@ -261,7 +262,6 @@ public class YoKai extends BaseTextProgram {
     } // END temporaryIncreaseStrength
 
     /**
-     * @since 1.0
      * temporary increase in spirit
      * @param amount to increase spirit by
      */
@@ -270,7 +270,6 @@ public class YoKai extends BaseTextProgram {
     } // END temporaryIncreaseSpirit
 
     /**
-     * @since 1.0
      * temporary increase in speed
      * @param amount to increase speed by
      */
@@ -279,7 +278,6 @@ public class YoKai extends BaseTextProgram {
     } // END temporaryIncreaseSpeed
 
     /**
-     * @since 1.0
      * temporary increase in defence
      * @param amount to increase defence by
      */
@@ -288,7 +286,6 @@ public class YoKai extends BaseTextProgram {
     }// END temporaryIncreaseDefence
 
     /**
-     * @since 1.0
      * temporary increase in friendship value
      * @param amount to increase friendship value by
      */
@@ -297,7 +294,7 @@ public class YoKai extends BaseTextProgram {
     } // END temporaryIncreaseFriendshipValue
 
     /**
-     * @since 1.0
+     * @since 1.1
      * clears temporary modifiers
      */
     public void clearTemporaryModifiers() {
@@ -307,6 +304,90 @@ public class YoKai extends BaseTextProgram {
         defence.clearModifier();
         friendshipValue.clearModifier();
     } // END clearTemporaryModifiers
+
+    /**
+     * @return the equipment
+     */
+    public Equipment getEquipment() {
+        return equipment;
+    } // END getEquipment
+
+    /**
+     * @param equipment the equipment to set
+     */
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+        statChange();
+    } // END setEquipment
+
+    /**
+     * @since 1.2
+     * changes stats based on equipment
+     */
+    private void statChange() {
+        if (equipment != null) {
+            Map<String, Integer> statModifiers = equipment.getStatModifiers();
+            // loops over the map and applies the modifiers to the stats
+            for (Map.Entry<String, Integer> entry : statModifiers.entrySet()) {
+                String key = entry.getKey().toLowerCase();
+                int value = entry.getValue();
+
+                if ("all".equals(key)) {
+                    applyModifierToAll(value);
+                } else {
+                    applyModifierToStat(key, value);
+                }
+            }
+        }
+    }
+
+    /**
+     * This is to apply the modifier to the stat
+     * @param stat  the stat to apply the modifier to
+     * @param value the value of the modifier
+     * @throws IllegalArgumentException if the stat is not valid
+     */
+    private void applyModifierToStat(String stat, int value) {
+        switch (stat) {
+            case "strength":
+                temporaryIncreaseStrength(value);
+                break;
+            case "spirit":
+                temporaryIncreaseSpirit(value);
+                break;
+            case "speed":
+                temporaryIncreaseSpeed(value);
+                break;
+            case "defence":
+                temporaryIncreaseDefence(value);
+                break;
+            default:
+                throw new IllegalArgumentException("Not a valid stat");
+        }
+    }
+
+    /**
+     * This is to apply the modifier to all stats
+     * @param value the value of the modifier
+     */
+    private void applyModifierToAll(int value) {
+        temporaryIncreaseStrength(value);
+        temporaryIncreaseSpirit(value);
+        temporaryIncreaseSpeed(value);
+        temporaryIncreaseDefence(value);
+        temporaryIncreaseFriendshipValue(value);
+    }
+
+
+    /**
+     * @since 1.0
+     * removes equipment
+     */
+    public void removeEquipment() {
+        this.equipment = null;
+        clearTemporaryModifiers();
+    } // END removeEquipment
+
 
 }
 
