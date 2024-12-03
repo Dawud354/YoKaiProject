@@ -39,7 +39,7 @@ public class BaseTextProgram {
         if (text == null) {
             return false;
         }
-        return text.matches("[a-zA-Z0-9]+");
+        return text.matches("[a-zA-Z0-9 ]+");
     }
 
     /**

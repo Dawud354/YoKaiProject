@@ -10,8 +10,8 @@ import java.util.Map;
 /**
  * This is the Yo Kai class for my program
  * @author dawud
- * @version 1.2
- * @since 20/11/2024
+ * @version 1.3
+ * @since 03/12/2024
  */
 public class YoKai extends BaseTextProgram {
     private String name;
@@ -24,6 +24,9 @@ public class YoKai extends BaseTextProgram {
     private final Stat friendshipValue;
     private final FoodPreferences foodPreferences;
     private Equipment equipment;
+    private PhysicalMove physicalMove;
+    private SpecialMove specialMove;
+    private StatusMove statusMove;
 
     /**
      * @param name              name of the Yo Kai
@@ -35,7 +38,8 @@ public class YoKai extends BaseTextProgram {
      * @since 1.0
      * Constructor for the class
      */
-    YoKai(String name, int maxHP, int currentHP, int strength, int spirit, int speed, int defence, int friendshipValue, FoodTypes favouriteFoodType, FoodTypes dislikedFoodType, YoKaiTribes tribe) {
+    public YoKai(String name, int maxHP, int currentHP, int strength, int spirit, int speed, int defence, int friendshipValue, FoodTypes favouriteFoodType,
+                 FoodTypes dislikedFoodType, YoKaiTribes tribe, PhysicalMove physicalMove, SpecialMove specialMove, StatusMove statusMove) {
         setName(name);
         health = new HealthStat(maxHP, currentHP);
         this.strength = new Stat(strength);
@@ -45,7 +49,9 @@ public class YoKai extends BaseTextProgram {
         this.friendshipValue = new Stat(friendshipValue);
         foodPreferences = new FoodPreferences(favouriteFoodType, dislikedFoodType);
         setTribe(tribe);
-
+        setPhysicalMove(physicalMove);
+        setSpecialMove(specialMove);
+        setStatusMove(statusMove);
     } // END YoKaiCode.YoKai
 
     /**
@@ -88,6 +94,15 @@ public class YoKai extends BaseTextProgram {
         String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy stats are:\nHP: " + health.getCurrentHP() + "/" + health.getMaxHP() + "\nStrength: " + strength.getValue() + "\nSpirit: " + spirit.getValue() + "\nSpeed: " + speed.getValue() + "\nDefence: " + defence.getValue() + "\nFriendship Value: " + friendshipValue.getValue();
         return text;
     } // End statsToString
+
+    /**
+     * @return the moves of the Yo Kai
+     */
+    public String movesToString(){
+        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy moves are:\nPhysical Move: " + physicalMove.getName() + "\nSpecial Move: " + specialMove.getName() + "\nStatus Move: " + statusMove.getName();
+        return text;
+    } // End movesToString
+
 
 
     /**
@@ -326,13 +341,13 @@ public class YoKai extends BaseTextProgram {
      */
     private void statChange() {
         if (equipment != null) {
-            Map<String, Integer> statModifiers = equipment.getStatModifiers();
+            Map<ValidStats, Integer> statModifiers = equipment.getStatModifiers();
             // loops over the map and applies the modifiers to the stats
-            for (Map.Entry<String, Integer> entry : statModifiers.entrySet()) {
-                String key = entry.getKey().toLowerCase();
+            for (Map.Entry<ValidStats, Integer> entry : statModifiers.entrySet()) {
+                ValidStats key = entry.getKey();
                 int value = entry.getValue();
 
-                if ("all".equals(key)) {
+                if (key == ValidStats.ALL) {
                     applyModifierToAll(value);
                 } else {
                     applyModifierToStat(key, value);
@@ -347,18 +362,18 @@ public class YoKai extends BaseTextProgram {
      * @param value the value of the modifier
      * @throws IllegalArgumentException if the stat is not valid
      */
-    private void applyModifierToStat(String stat, int value) {
+    private void applyModifierToStat(ValidStats stat, int value) {
         switch (stat) {
-            case "strength":
+            case STRENGTH:
                 temporaryIncreaseStrength(value);
                 break;
-            case "spirit":
+            case SPIRIT:
                 temporaryIncreaseSpirit(value);
                 break;
-            case "speed":
+            case SPEED:
                 temporaryIncreaseSpeed(value);
                 break;
-            case "defence":
+            case DEFENSE:
                 temporaryIncreaseDefence(value);
                 break;
             default:
@@ -378,9 +393,7 @@ public class YoKai extends BaseTextProgram {
         temporaryIncreaseFriendshipValue(value);
     }
 
-
     /**
-     * @since 1.0
      * removes equipment
      */
     public void removeEquipment() {
@@ -388,6 +401,59 @@ public class YoKai extends BaseTextProgram {
         clearTemporaryModifiers();
     } // END removeEquipment
 
+    /**
+     * @param physicalMove the physicalMove to set
+     * @throws IllegalArgumentException if the physicalMove is not valid
+     */
+    private void setPhysicalMove(PhysicalMove physicalMove) {
+        if (physicalMove == null) {
+            throw new IllegalArgumentException("Not a valid physical move.");
+        }
+        this.physicalMove = physicalMove;
+    } // END setPhysicalMove
+
+    /**
+     * @return the physicalMove
+     */
+    public PhysicalMove getPhysicalMove() {
+        return physicalMove;
+    } // END getPhysicalMove
+
+    /**
+     * @param specialMove the specialMove to set
+     * @throws IllegalArgumentException if the specialMove is not valid
+     */
+    private void setSpecialMove(SpecialMove specialMove) {
+        if (specialMove == null) {
+            throw new IllegalArgumentException("Not a valid special move.");
+        }
+        this.specialMove = specialMove;
+    } // END setSpecialMove
+
+    /**
+     * @return the specialMove
+     */
+    public SpecialMove getSpecialMove() {
+        return specialMove;
+    } // END getSpecialMove
+
+    /**
+     * @param statusMove the statusMove to set
+     * @throws IllegalArgumentException if the statusMove is not valid
+     */
+    private void setStatusMove(StatusMove statusMove) {
+        if (statusMove == null) {
+            throw new IllegalArgumentException("Not a valid status move.");
+        }
+        this.statusMove = statusMove;
+    } // END setStatusMove
+
+    /**
+     * @return the statusMove
+     */
+    public StatusMove getStatusMove() {
+        return statusMove;
+    } // END getStatusMove
 
 }
 
