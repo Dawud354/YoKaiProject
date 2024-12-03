@@ -1,11 +1,9 @@
 
-import FileManagement.FileIOManager;
-import FileManagement.JsonUtil;
+import FileManagement.*;
 import GeneralMethods.BaseTextProgram;
 import Items.*;
-import Inventory.*;
-import YoKaiCode.YoKai;
-import java.util.HashMap;
+import YoKaiCode.*;
+
 import java.util.Map;
 
 /* ***************************************
@@ -28,11 +26,9 @@ import java.util.Map;
 public class Main extends BaseTextProgram {
     // calls other methods
     public static void main(String[] args)  {
-        FileIOManager<Equipment> fileIOManager = new FileIOManager<>();
-        Equipment shield = fileIOManager.load("shield", Equipment.class);
-        Equipment sword = fileIOManager.load("sword", Equipment.class);
-        print(shield.toString());
-        print(sword.toString());
+        FileIOManager<YoKai> yoKaiFileIOManager = new FileIOManager<>();
+        YoKai jibanyan = yoKaiFileIOManager.load("jibanyan", YoKai.class);
+        System.out.println(jibanyan.movesToString());
     }
 
 }

@@ -1,4 +1,6 @@
 package Items;
+import YoKaiCode.ValidStats;
+
 import java.util.Map;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Map;
  * @since 30/11/2024
  */
 public class Equipment extends BaseItem {
-    private Map<String, Integer> statModifiers;
+    private Map<ValidStats, Integer> statModifiers;
 
     /**
      * Constructor for Equipment
@@ -17,7 +19,7 @@ public class Equipment extends BaseItem {
      * @param statModifiers the stat modifiers of the equipment
      * @param description description of the equipment
      */
-    public Equipment(String name, Map<String, Integer> statModifiers, String description) {
+    public Equipment(String name, Map<ValidStats, Integer> statModifiers, String description) {
         super(name, description);
         setStatModifiers(statModifiers);
     }
@@ -35,7 +37,7 @@ public class Equipment extends BaseItem {
      * @param statModifiers the stat modifiers to set
      * @throws IllegalArgumentException if statModifiers is null or empty
      */
-    public void setStatModifiers(Map<String, Integer> statModifiers) {
+    public void setStatModifiers(Map<ValidStats, Integer> statModifiers) {
         if (statModifiers == null|| statModifiers.isEmpty()) {
             throw new IllegalArgumentException("Stat modifiers cannot be null or empty.");
         }
@@ -45,7 +47,7 @@ public class Equipment extends BaseItem {
     /**
      * @return the stat modifiers of the equipment
      */
-    public Map<String, Integer> getStatModifiers() {
+    public Map<ValidStats, Integer> getStatModifiers() {
         return statModifiers;
     }
 }

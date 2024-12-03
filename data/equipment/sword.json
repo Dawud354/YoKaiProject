@@ -1,7 +1,7 @@
 {
   "statModifiers": {
-    "strength": 10
+    "STRENGTH": 10
   },
   "name": "Sword",
-  "description": "A sharp blade that enhances attack"
+  "description": "A sword that increases strength by 10"
 }
