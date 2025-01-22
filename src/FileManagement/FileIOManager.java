@@ -52,4 +52,10 @@ public class FileIOManager<T> {
         String filePath = getFilePath(objectClass.getSimpleName().toLowerCase(), name);
         return JsonUtil.loadFromJsonFile(filePath, objectClass);
     }
+
+    public static String[] getAllFileNames(String category) {
+        String directoryPath = BASE_DIRECTORY + File.separator + category;
+        File directory = new File(directoryPath);
+        return directory.list();
+    }
 }

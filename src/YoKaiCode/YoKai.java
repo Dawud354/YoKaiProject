@@ -26,7 +26,7 @@ public class YoKai extends BaseTextProgram {
     private Equipment equipment;
     private PhysicalMove physicalMove;
     private SpecialMove specialMove;
-    private StatusMove statusMove;
+    private SecondaryEffect statusEffect;
 
     /**
      * @param name              name of the Yo Kai
@@ -39,7 +39,7 @@ public class YoKai extends BaseTextProgram {
      * Constructor for the class
      */
     public YoKai(String name, int maxHP, int currentHP, int strength, int spirit, int speed, int defence, int friendshipValue, FoodTypes favouriteFoodType,
-                 FoodTypes dislikedFoodType, YoKaiTribes tribe, PhysicalMove physicalMove, SpecialMove specialMove, StatusMove statusMove) {
+                 FoodTypes dislikedFoodType, YoKaiTribes tribe, PhysicalMove physicalMove, SpecialMove specialMove) {
         setName(name);
         health = new HealthStat(maxHP, currentHP);
         this.strength = new Stat(strength);
@@ -51,7 +51,6 @@ public class YoKai extends BaseTextProgram {
         setTribe(tribe);
         setPhysicalMove(physicalMove);
         setSpecialMove(specialMove);
-        setStatusMove(statusMove);
     } // END YoKaiCode.YoKai
 
     /**
@@ -99,7 +98,7 @@ public class YoKai extends BaseTextProgram {
      * @return the moves of the Yo Kai
      */
     public String movesToString(){
-        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy moves are:\nPhysical Move: " + physicalMove.getName() + "\nSpecial Move: " + specialMove.getName() + "\nStatus Move: " + statusMove.getName();
+        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy moves are:\nPhysical Move: " + physicalMove.getName() + "\nSpecial Move: " + specialMove.getName();
         return text;
     } // End movesToString
 
@@ -171,6 +170,14 @@ public class YoKai extends BaseTextProgram {
     public int getMaxHP() {
         return health.getMaxHP();
     }// END getMaxHP
+
+    /**
+     * @return the current hp as a string
+     * @since 1.0
+     */
+    public String getHPAsString(){
+        return health.getCurrentHP() + "/" + health.getMaxHP();
+    } // END getHPAsString
 
     /**
      * @param amount the amount to adjust the health by
@@ -437,23 +444,44 @@ public class YoKai extends BaseTextProgram {
         return specialMove;
     } // END getSpecialMove
 
-    /**
-     * @param statusMove the statusMove to set
-     * @throws IllegalArgumentException if the statusMove is not valid
-     */
-    private void setStatusMove(StatusMove statusMove) {
-        if (statusMove == null) {
-            throw new IllegalArgumentException("Not a valid status move.");
-        }
-        this.statusMove = statusMove;
-    } // END setStatusMove
+    public boolean isMoveInMoveset(BaseMove move){
+        return physicalMove.equals(move) || specialMove.equals(move);
+    }
 
     /**
-     * @return the statusMove
+     * @return the statusEffect
      */
-    public StatusMove getStatusMove() {
-        return statusMove;
-    } // END getStatusMove
+    public SecondaryEffect getStatusEffect() {
+        return statusEffect;
+    } // END getStatusEffect
+
+    /**
+     * @param statusEffect the statusEffect to set
+     */
+    public void setStatusEffect(SecondaryEffect statusEffect) {
+        this.statusEffect = statusEffect;
+    } // END setStatusEffect
+
+    /**
+     * Checks if the Yo Kai is defeated
+     * @return true if the Yo Kai is defeated
+     */
+    public boolean isDefeated() {
+        return health.getCurrentHP() <= 0;
+    } // END isDefeated
+
+    /**
+     * Returns a random move
+     */
+    public BaseMove getRandomMove(){
+        int random = BaseTextProgram.randomInt(1,2);
+        if (random == 1){
+            return physicalMove;
+        }
+        else {
+            return specialMove;
+        }
+    } // END getRandomMove
 
 }
 

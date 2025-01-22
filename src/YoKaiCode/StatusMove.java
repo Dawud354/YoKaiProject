@@ -2,6 +2,10 @@ package YoKaiCode;
 
 import GeneralMethods.BaseTextProgram;
 
+/**
+ * This class represents a status move that can be used in battle
+ * NOTE: THIS CLASS IS NOT BEING USED. NOT COMPLETED
+ */
 public class StatusMove extends BaseMove {
     SecondaryEffect secondaryEffect;
     private ValidStats statToChange;
@@ -16,7 +20,7 @@ public class StatusMove extends BaseMove {
     }
 
     public StatusMove(String name,String description, int power, int accuracy, SecondaryEffect secondaryEffect, ValidStats statToChange, int changeAmount) {
-        super(name,description, power, accuracy, MoveCategory.SPECIAL);
+        super(name,description, power, accuracy, MoveCategory.STATUS);
         this.secondaryEffect = secondaryEffect;
         this.statToChange = statToChange;
         setChangeAmount(changeAmount);

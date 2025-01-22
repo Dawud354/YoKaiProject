@@ -59,6 +59,6 @@
     "description": "A status move that burns the opponent",
     "power": 0,
     "accuracy": 80,
-    "category": "SPECIAL"
+    "category": "STATUS"
   }
 }

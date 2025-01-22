@@ -1,0 +1,64 @@
+{
+  "name": "Whisper",
+  "tribe": "Mysterious",
+  "health": {
+    "maxHP": {
+      "baseValue": 80
+    },
+    "currentHP": {
+      "baseValue": 80
+    }
+  },
+  "strength": {
+    "baseValue": 6
+  },
+  "spirit": {
+    "baseValue": 20
+  },
+  "speed": {
+    "baseValue": 18
+  },
+  "defence": {
+    "baseValue": 6
+  },
+  "friendshipValue": {
+    "baseValue": 12
+  },
+  "foodPreferences": {
+    "favouriteFood": "sushi",
+    "dislikedFood": "spicy food"
+  },
+  "equipment": {
+    "statModifiers": {
+      "SPIRIT": 8
+    },
+    "name": "Spooky Lantern",
+    "description": "A lantern that boosts spirit"
+  },
+  "physicalMove": {
+    "name": "Frightful Scream",
+    "description": "A scream that sends a wave of fear to deal damage",
+    "power": 40,
+    "accuracy": 100,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "LOWER_STAT",
+    "statToChange": "DEFENCE",
+    "changeAmount": 10,
+    "name": "Ghostly Howl",
+    "description": "A special move that howls at the enemy, lowering their defense",
+    "power": 50,
+    "accuracy": 85,
+    "category": "SPECIAL"
+  },
+  "statusMove": {
+    "secondaryEffect": "CONFUSE",
+    "changeAmount": 0,
+    "name": "Eerie Mist",
+    "description": "A mist that confuses the opponent",
+    "power": 0,
+    "accuracy": 90,
+    "category": "SPECIAL"
+  }
+}

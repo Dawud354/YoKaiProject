@@ -1,5 +1,4 @@
-import YoKaiCode.YoKai;
-import YoKaiCode.YoKaiTribes;
+package YoKaiCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Team class that holds the users current team. It allows the user to have a team of 3 YoKaiCode.YoKai
+ * YoKaiCode.Team class that holds the users current team. It allows the user to have a team of 3 YoKaiCode.YoKai
  * @see YoKai
  * @author dawud
- * @version 1.0
- * @since 17/11/2024
+ * @version 1.1
+ * @since 04/12/2024
  */
 public class Team {
     final int MAX_TEAM_SIZE = 3;
@@ -19,15 +18,15 @@ public class Team {
     private YoKaiTribes currentTeamBonus;
 
     // Define bonuses
-    private static final Map<YoKaiTribes, Map<String, Integer>> familyBonuses = new HashMap<>() {{
-        put(YoKaiTribes.brave, Map.of("attack", 10));
-        put(YoKaiTribes.charming, Map.of("speed", 10));
-        put(YoKaiTribes.mysterious, Map.of("spirit", 10));
-        put(YoKaiTribes.tough, Map.of("defence", 10));
-        put(YoKaiTribes.eerie, Map.of("spirit", 10));
-        put(YoKaiTribes.slippery, Map.of("speed", 10));
-        put(YoKaiTribes.shady, Map.of("defence", 10));
-        put(YoKaiTribes.heartful, Map.of("friendshipValue", 10));
+    private static final Map<YoKaiTribes, Map<ValidStats, Integer>> familyBonuses = new HashMap<>() {{
+        put(YoKaiTribes.brave, Map.of(ValidStats.STRENGTH, 10));
+        put(YoKaiTribes.charming, Map.of(ValidStats.SPEED, 10));
+        put(YoKaiTribes.mysterious, Map.of(ValidStats.SPIRIT, 10));
+        put(YoKaiTribes.tough, Map.of(ValidStats.DEFENSE, 10));
+        put(YoKaiTribes.eerie, Map.of(ValidStats.SPIRIT, 10));
+        put(YoKaiTribes.slippery, Map.of(ValidStats.SPEED, 10));
+        put(YoKaiTribes.shady, Map.of(ValidStats.DEFENSE, 10));
+        put(YoKaiTribes.heartful, Map.of(ValidStats.FRIENDSHIP, 10));
     }};
 
     /**
@@ -35,7 +34,7 @@ public class Team {
      * Constructor for the class
      * @param team array of YoKaiCode.YoKai
      */
-    Team(YoKai[] team){
+    public Team(YoKai[] team){
         for (YoKai yoKai : team) {
             addYoKai(yoKai);
         }
@@ -108,23 +107,24 @@ public class Team {
      */
     public void applyBonus(){
         if (currentTeamBonus != null && familyBonuses.containsKey(currentTeamBonus)) {
-            Map<String, Integer> bonuses = familyBonuses.get(currentTeamBonus);
+            Map<ValidStats, Integer> bonuses = familyBonuses.get(currentTeamBonus);
             for (YoKai yoKai: team){
-                for (Map.Entry<String, Integer> bonus : bonuses.entrySet()) {
+                for (Map.Entry<ValidStats, Integer> bonus : bonuses.entrySet()) {
                     switch (bonus.getKey()) {
-                        case "attack":
+                        case STRENGTH:
                             yoKai.temporaryIncreaseStrength(bonus.getValue());
                             break;
-                        case "defence":
+                        case DEFENSE:
                             yoKai.temporaryIncreaseDefence(bonus.getValue());
                             break;
-                        case "speed":
+                        case SPEED:
                             yoKai.temporaryIncreaseSpeed(bonus.getValue());
                             break;
-                        case "spirit":
+                        case SPIRIT:
                             yoKai.temporaryIncreaseSpirit(bonus.getValue());
                             break;
-                        case "friendshipValue":
+                        case FRIENDSHIP:
+
                             yoKai.temporaryIncreaseFriendshipValue(bonus.getValue());
                             break;
                     }
@@ -142,4 +142,65 @@ public class Team {
             yokai.clearTemporaryModifiers();
         }
     } // END removeBonus
+
+    /**
+     * @since 1.1
+     * Checks if the team is defeated
+     * @return true if all YoKaiCode.YoKai in the team are defeated
+     */
+    public boolean isTeamDefeated(){
+        for (YoKai yoKai: team){
+            if (!yoKai.isDefeated()){
+                return false;
+            }
+        }
+        return true;
+    } // END isTeamDefeated
+
+    /**
+     * Returns the names of the YoKai in the team as an array of strings
+     */
+    public String[] getTeamNames() {
+        String[] names = new String[team.size()];
+        for (int i = 0; i < team.size(); i++) {
+            names[i] = team.get(i).getName();
+        }
+        return names;
+    } // END getTeamNames
+
+    /**
+     * Returns the size of the team
+     */
+    public int getTeamSize() {
+        return team.size();
+    } // END getTeamSize
+
+    /**
+     * Returns how many YoKai are alive in the team
+     */
+    public int getAliveCount() {
+        int count = 0;
+        for (YoKai yoKai: team) {
+            if (!yoKai.isDefeated()) {
+                count++;
+            }
+        }
+        return count;
+    } // END getAliveCount
+
+    /**
+     * Returns a random YoKai from the team
+     */
+    public YoKai getRandomYoKai() {
+        if (isTeamDefeated()){
+            return null;
+        }
+        // could theoretically loop forever if random number generator is bad
+        YoKai yoKai= team.get((int) (Math.random() * team.size()));
+        if(yoKai.isDefeated()){
+            yoKai= team.get((int) (Math.random() * team.size()));
+        }
+        return yoKai;
+    } // END getRandomYoKai
+
 }

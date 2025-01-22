@@ -70,7 +70,7 @@ public class JsonUtil {
 
     /**
      * @since 1.0
-     * Check if a file name is valid for a JSON file. Adds .json extension if missing.
+     * Check if a file name is valid for a JSON file. Adds .json extension if missing. It will also
      * Then checks if still invalid and if so, throws an exception.
      * @param fileName the file name to check
      * @return the checked file name
