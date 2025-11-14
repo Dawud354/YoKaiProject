@@ -1,0 +1,64 @@
+{
+  "name": "Robonyan",
+  "tribe": "tough",
+  "health": {
+    "maxHP": {
+      "baseValue": 120
+    },
+    "currentHP": {
+      "baseValue": 120
+    }
+  },
+  "strength": {
+    "baseValue": 18
+  },
+  "spirit": {
+    "baseValue": 10
+  },
+  "speed": {
+    "baseValue": 22
+  },
+  "defence": {
+    "baseValue": 9
+  },
+  "friendshipValue": {
+    "baseValue": 11
+  },
+  "foodPreferences": {
+    "favouriteFood": "battery",
+    "dislikedFood": "fish"
+  },
+  "equipment": {
+    "statModifiers": {
+      "SPEED": 10
+    },
+    "name": "Jetpack",
+    "description": "A jetpack that increases speed by 10"
+  },
+  "physicalMove": {
+    "name": "Laser Beam",
+    "description": "A ranged attack that fires a laser beam at the enemy",
+    "power": 55,
+    "accuracy": 95,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "LOWER_STAT",
+    "statToChange": "SPIRIT",
+    "changeAmount": 15,
+    "name": "Electric Surge",
+    "description": "A special move that releases an electric surge, lowering the enemy's spirit",
+    "power": 65,
+    "accuracy": 90,
+    "category": "SPECIAL"
+  },
+  "statusMove": {
+    "secondaryEffect": "CONFUSE",
+    "changeAmount": 0,
+    "name": "Confuse Ray",
+    "description": "A status move that confuses the opponent",
+    "power": 0,
+    "accuracy": 85,
+    "category": "SPECIAL"
+  }
+}

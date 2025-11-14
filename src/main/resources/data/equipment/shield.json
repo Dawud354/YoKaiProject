@@ -1,0 +1,8 @@
+{
+  "statModifiers": {
+    "defence": 20,
+    "speed": -5
+  },
+  "name": "Shield",
+  "description": "A shield to protect you from attacks"
+}

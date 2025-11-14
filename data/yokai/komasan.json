@@ -1,0 +1,64 @@
+{
+  "name": "Komasan",
+  "tribe": "charming",
+  "health": {
+    "maxHP": {
+      "baseValue": 110
+    },
+    "currentHP": {
+      "baseValue": 110
+    }
+  },
+  "strength": {
+    "baseValue": 12
+  },
+  "spirit": {
+    "baseValue": 18
+  },
+  "speed": {
+    "baseValue": 14
+  },
+  "defence": {
+    "baseValue": 8
+  },
+  "friendshipValue": {
+    "baseValue": 10
+  },
+  "foodPreferences": {
+    "favouriteFood": "ramen",
+    "dislikedFood": "burger"
+  },
+  "equipment": {
+    "statModifiers": {
+      "DEFENCE": 5
+    },
+    "name": "Shield",
+    "description": "A shield that increases defense by 5"
+  },
+  "physicalMove": {
+    "name": "Horn Attack",
+    "description": "A physical move that uses the user's horns to deal damage",
+    "power": 50,
+    "accuracy": 100,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "LOWER_STAT",
+    "statToChange": "DEFENCE",
+    "changeAmount": 10,
+    "name": "Rock Slide",
+    "description": "A special move that causes rocks to fall on the enemy, lowering their defense",
+    "power": 60,
+    "accuracy": 85,
+    "category": "SPECIAL"
+  },
+  "statusMove": {
+    "secondaryEffect": "SLEEP",
+    "changeAmount": 0,
+    "name": "Rest",
+    "description": "A status move that makes the opponent fall asleep",
+    "power": 0,
+    "accuracy": 95,
+    "category": "SPECIAL"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "Shogunyan",
+  "tribe": "brave",
+  "health": {
+    "maxHP": {
+      "baseValue": 130
+    },
+    "currentHP": {
+      "baseValue": 130
+    }
+  },
+  "strength": {
+    "baseValue": 20
+  },
+  "spirit": {
+    "baseValue": 25
+  },
+  "speed": {
+    "baseValue": 25
+  },
+  "defence": {
+    "baseValue": 12
+  },
+  "friendshipValue": {
+    "baseValue": 12
+  },
+  "foodPreferences": {
+    "favouriteFood": "sushi",
+    "dislikedFood": "salad"
+  },
+  "equipment": {
+    "statModifiers": {
+      "STRENGTH": 15
+    },
+    "name": "Katana",
+    "description": "A katana that increases strength by 15"
+  },
+  "physicalMove": {
+    "name": "Samurai Slash",
+    "description": "A powerful sword slash that deals massive damage",
+    "power": 50,
+    "accuracy": 95,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "STUN",
+    "statToChange": "SPEED",
+    "changeAmount": 0,
+    "name": "Heavenly Strike",
+    "description": "A special move that strikes the enemy with divine force, stunning them",
+    "power": 80,
+    "accuracy": 85,
+    "category": "SPECIAL"
+  },
+  "statusMove": {
+    "secondaryEffect": "PARALYZE",
+    "changeAmount": 0,
+    "name": "Thunder Slash",
+    "description": "A status move that paralyzes the enemy",
+    "power": 0,
+    "accuracy": 90,
+    "category": "SPECIAL"
+  }
+}

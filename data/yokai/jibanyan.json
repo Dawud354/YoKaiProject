@@ -1,0 +1,64 @@
+{
+  "name": "Jibanyan",
+  "tribe": "charming",
+  "health": {
+    "maxHP": {
+      "baseValue": 100
+    },
+    "currentHP": {
+      "baseValue": 100
+    }
+  },
+  "strength": {
+    "baseValue": 10
+  },
+  "spirit": {
+    "baseValue": 15
+  },
+  "speed": {
+    "baseValue": 20
+  },
+  "defence": {
+    "baseValue": 5
+  },
+  "friendshipValue": {
+    "baseValue": 9
+  },
+  "foodPreferences": {
+    "favouriteFood": "burger",
+    "dislikedFood": "pasta"
+  },
+  "equipment": {
+    "statModifiers": {
+      "STRENGTH": 10
+    },
+    "name": "Sword",
+    "description": "A sword that increases strength by 10"
+  },
+  "physicalMove": {
+    "name": "Tackle",
+    "description": "A physical move that deals damage",
+    "power": 40,
+    "accuracy": 100,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "LOWER_STAT",
+    "statToChange": "SPEED",
+    "changeAmount": 20,
+    "name": "Dark Sight",
+    "description": "A special move creeps up on the enemy from the darkness, lowering their speed",
+    "power": 50,
+    "accuracy": 90,
+    "category": "SPECIAL"
+  },
+  "statusMove": {
+    "secondaryEffect": "BURN",
+    "changeAmount": 0,
+    "name": "Burn",
+    "description": "A status move that burns the opponent",
+    "power": 0,
+    "accuracy": 80,
+    "category": "STATUS"
+  }
+}

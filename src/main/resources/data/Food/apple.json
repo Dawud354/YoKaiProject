@@ -1,0 +1,6 @@
+{
+  "name": "apple",
+  "healingPoints": 10,
+  "description": "A juicy apple",
+  "foodType": "fruit"
+}
