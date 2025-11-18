@@ -1,8 +1,5 @@
 package com.github.Dawud354.YoKaiCode;
 
-import com.github.Dawud354.Items.Food;
-import com.github.Dawud354.Items.FoodTypes;
-import com.github.Dawud354.GeneralMethods.BaseTextProgram;
 import com.github.Dawud354.Items.Equipment;
 
 import java.util.Map;
@@ -13,57 +10,38 @@ import java.util.Map;
  * @version 1.3
  * @since 03/12/2024
  */
-public class YoKai extends BaseTextProgram {
+public class YoKai {
     private String name;
     private YoKaiTribes tribe;
-    private final HealthStat health;
-    private final Stat strength;
-    private final Stat spirit;
-    private final Stat speed;
-    private final Stat defence;
-    private final Stat friendshipValue;
-    private final FoodPreferences foodPreferences;
+    private Stats stats;
     private Equipment equipment;
     private PhysicalMove physicalMove;
     private SpecialMove specialMove;
-    private SecondaryEffect statusEffect;
 
     /**
      * @param name              name of the Yo Kai
      * @param maxHP             max hp of Yo Kai
      * @param currentHP         how much hp Yo Kai has, must be less than or equal to  maxHP
      * @param strength          how much hit power Yo Kai has
-     * @param favouriteFoodType what type of food it likes
-     * @param dislikedFoodType  what type of food it dislikes
      * @since 1.0
      * Constructor for the class
      */
-    public YoKai(String name, int maxHP, int currentHP, int strength, int spirit, int speed, int defence, int friendshipValue, FoodTypes favouriteFoodType,
-                 FoodTypes dislikedFoodType, YoKaiTribes tribe, PhysicalMove physicalMove, SpecialMove specialMove) {
+    public YoKai(String name, int maxHP, int currentHP, int strength, int spirit, int speed, int defence, int friendshipValue, YoKaiTribes tribe, PhysicalMove physicalMove, SpecialMove specialMove) {
         setName(name);
-        health = new HealthStat(maxHP, currentHP);
-        this.strength = new Stat(strength);
-        this.spirit = new Stat(spirit);
-        this.speed = new Stat(speed);
-        this.defence = new Stat(defence);
-        this.friendshipValue = new Stat(friendshipValue);
-        foodPreferences = new FoodPreferences(favouriteFoodType, dislikedFoodType);
         setTribe(tribe);
         setPhysicalMove(physicalMove);
         setSpecialMove(specialMove);
+        stats = new Stats(maxHP, currentHP, strength, spirit, speed, defence, friendshipValue);
     } // END YoKaiCode.YoKai
 
     /**
-     * @param name new name of Yo Kai
+     * @param name  new name of Yo Kai
      * @since 1.0
      * Set the name of the Yo Kai. Checks if it is alphanumeric
      */
     private void setName(String name) {
-        if (BaseTextProgram.isAlphanumeric(name)) {
-            this.name = name;
-        } else {
-            throw new IllegalArgumentException("Name must be alphanumeric");
-        }
+        this.name = name;
+        
     } // END setName
 
     /**
@@ -82,7 +60,7 @@ public class YoKai extends BaseTextProgram {
      */
     @Override
     public String toString() {
-        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.I like to eat: " + foodPreferences.getFavouriteFood() + " and I do not like: " + foodPreferences.getDislikedFood();
+        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.";
         return text;
     } // End toString
 
@@ -90,7 +68,7 @@ public class YoKai extends BaseTextProgram {
      * @return stats of yo kai
      */
     public String statsToString(){
-        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy stats are:\nHP: " + health.getCurrentHP() + "/" + health.getMaxHP() + "\nStrength: " + strength.getValue() + "\nSpirit: " + spirit.getValue() + "\nSpeed: " + speed.getValue() + "\nDefence: " + defence.getValue() + "\nFriendship Value: " + friendshipValue.getValue();
+        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy stats are:\nHP: " + stats.getHealth() + "/" + stats.getMaxHealth() + "\nStrength: " + stats.getStrength() + "\nSpirit: " + stats.getSpirit() + "\nSpeed: " + stats.getSpeed() + "\nDefence: " + stats.getDefence() + "\nFriendship Value: " + stats.getFriendshipValue();
         return text;
     } // End statsToString
 
@@ -101,31 +79,6 @@ public class YoKai extends BaseTextProgram {
         String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.\nMy moves are:\nPhysical Move: " + physicalMove.getName() + "\nSpecial Move: " + specialMove.getName();
         return text;
     } // End movesToString
-
-
-
-    /**
-     * @param food Items.Food object to pass in
-     * @throws IllegalArgumentException if food is null
-     * @since 1.0
-     * Changes healing amount depending on whether Yo Kai likes the food or not
-     */
-    public void feed(Food food) {
-        if (food == null) {
-            throw new IllegalArgumentException("Not a valid food type.");
-        }
-        int healing = food.getHealingPoints();
-        if (foodPreferences.likesFood(food.getFoodType())) {
-            BaseTextProgram.print(this.name + " loved that");
-            healing = (int) (healing * 1.2);
-        } else if (foodPreferences.dislikesFood(food.getFoodType())) {
-            BaseTextProgram.print(this.name + " did not like that");
-            healing = (int) (healing * 0.8);
-        } else {
-            BaseTextProgram.print(this.name + " found the food o.k");
-        }
-        health.adjustCurrentHP(healing);
-    }// END Feed
 
     /**
      * @return what tribe the Yo Kai is in as a string
@@ -160,7 +113,7 @@ public class YoKai extends BaseTextProgram {
      * @since 1.0
      */
     public int getHP() {
-        return health.getCurrentHP();
+        return stats.getHealth();
     }// END getHP
 
     /**
@@ -168,33 +121,43 @@ public class YoKai extends BaseTextProgram {
      * @since 1.0
      */
     public int getMaxHP() {
-        return health.getMaxHP();
+        return stats.getMaxHealth();
     }// END getMaxHP
 
     /**
-     * @return the current hp as a string
+     * @param amount the amount to increase the health by
      * @since 1.0
+     * Increase the health of the Yo Kai by the given amount
      */
-    public String getHPAsString(){
-        return health.getCurrentHP() + "/" + health.getMaxHP();
-    } // END getHPAsString
-
-    /**
-     * @param amount the amount to adjust the health by
-     * @since 1.0
-     * Adjusts the health of the Yo Kai by the given amount
-     */
-    public void adjustHP(int amount) {
-        health.adjustCurrentHP(amount);
+    public void increaseHP(int amount) {
+        stats.increaseHP(amount);
     }
 
     /**
-     * @param amount the amount to adjust the max health by
+     * @param amount the amount to decrease the health by
      * @since 1.0
-     * Adjusts the max health of the Yo Kai by the given amount
+     * Decrease the health of the Yo Kai by the given amount
      */
-    public void adjustMaxHP(int amount) {
-        health.adjustMaxHP(amount);
+    public void decreaseHP(int amount) {
+        stats.decreaseHP(amount);
+    }
+
+    /**
+     * @param amount the amount to increase the max health by
+     * @since 1.0
+     * Increase the max health of the Yo Kai by the given amount
+     */
+    public void increaseMaxHP(int amount) {
+        stats.increaseMaxHP(amount);
+    }
+
+    /**
+     * @param amount the amount to decrease the max health by
+     * @since 1.0
+     * Decrease the max health of the Yo Kai by the given amount
+     */
+    public void decreaseMaxHP(int amount) {
+        stats.decreaseMaxHP(amount);
     }
 
     /**
@@ -202,130 +165,126 @@ public class YoKai extends BaseTextProgram {
      * @since 1.0
      */
     public int getStrength() {
-        return strength.getValue();
+        return stats.getStrength();
     }// END getStrength
 
     /**
-     * @param amount the amount to adjust the strength by
+     * @param amount the amount to increase the strength by
      * @since 1.0
-     * Adjusts the strength of the Yo Kai by the given amount
+     * Increase the strength of the Yo Kai by the given amount
      */
-    public void adjustStrength(int amount) {
-        strength.increase(amount);
-    } // END adjustStrength
+    public void increaseStrength(int amount) {
+        stats.increaseStrength(amount);
+    }
+
+    /**
+     * @param amount the amount to decrease the strength by
+     * @since 1.0
+     * Decrease the strength of the Yo Kai by the given amount
+     */
+    public void decreaseStrength(int amount) {
+        stats.decreaseStrength(amount);
+    }
 
     /**
      * @return the spirit
      */
     public int getSpirit() {
-        return spirit.getValue();
+        return stats.getSpirit();
     }// END getSpirit
 
     /**
-     * @param amount the amount to adjust the spirit by
-     * Adjusts the spirit of the Yo Kai by the given amount
+     * @param amount the amount to increase the spirit by
+     * @since 1.0
+     * Increase the spirit of the Yo Kai by the given amount
      */
-    public void adjustSpirit(int amount) {
-        spirit.increase(amount);
-    } // END adjustSpirit
+    public void increaseSpirit(int amount) {
+        stats.increaseSpirit(amount);
+    }
+
+    /**
+     * @param amount the amount to decrease the spirit by
+     * @since 1.0
+     * Decrease the spirit of the Yo Kai by the given amount
+     */
+    public void decreaseSpirit(int amount) {
+        stats.decreaseSpirit(amount);
+    }
 
     /**
      * @return the speed
      */
     public int getSpeed() {
-        return speed.getValue();
+        return stats.getSpeed();
     }// END getSpeed
 
     /**
-     * @param amount the amount to adjust the speed by
-     * Adjusts the speed of the Yo Kai by the given amount
+     * @param amount the amount to increase the speed by
+     * @since 1.0
+     * Increase the speed of the Yo Kai by the given amount
      */
-    public void adjustSpeed(int amount) {
-        speed.increase(amount);
-    } // END adjustSpeed
+    public void increaseSpeed(int amount) {
+        stats.increaseSpeed(amount);
+    }
+
+    /**
+     * @param amount the amount to decrease the speed by
+     * @since 1.0
+     * Decrease the speed of the Yo Kai by the given amount
+     */
+    public void decreaseSpeed(int amount) {
+        stats.decreaseSpeed(amount);
+    }
 
     /**
      * @return the defence
      */
     public int getDefence() {
-        return defence.getValue();
+        return stats.getDefence();
     }// END getDefence
 
     /**
-     * @param amount the amount to adjust the defence by
-     * Adjusts the defence of the Yo Kai by the given amount
+     * @param amount the amount to increase the defence by
+     * @since 1.0
+     * Increase the defence of the Yo Kai by the given amount
      */
-    public void adjustDefence(int amount) {
-        defence.increase(amount);
-    } // END adjustDefence
+    public void increaseDefence(int amount) {
+        stats.increaseDefence(amount);
+    }
 
+    /**
+     * @param amount the amount to decrease the defence by
+     * @since 1.0
+     * Decrease the defence of the Yo Kai by the given amount
+     */
+    public void decreaseDefence(int amount) {
+        stats.decreaseDefence(amount);
+    }
 
     /**
      * @return the friendship value
      */
     public int getFriendshipValue() {
-        return friendshipValue.getValue();
+        return stats.getFriendshipValue();
     }// END getFriendshipValue
 
     /**
      * @param amount the amount to increase the friendship value by
-     * increases the friendship value of the Yo Kai by the given amount
+     * @since 1.0
+     * Increase the friendship value of the Yo Kai by the given amount
      */
     public void increaseFriendshipValue(int amount) {
-        friendshipValue.increase(amount);
-    } // END increaseFriendshipValue
+        stats.increaseFriendshipValue(amount);
+    }
 
     /**
-     * temporary increase in strength
-     * @param amount to increase strength by
+     * @param amount the amount to decrease the friendship value by
+     * @since 1.0
+     * Decrease the friendship value of the Yo Kai by the given amount
      */
-    public void temporaryIncreaseStrength(int amount) {
-        strength.setTemporaryModifier(amount);
-    } // END temporaryIncreaseStrength
-
-    /**
-     * temporary increase in spirit
-     * @param amount to increase spirit by
-     */
-    public void temporaryIncreaseSpirit(int amount) {
-        spirit.setTemporaryModifier(amount);
-    } // END temporaryIncreaseSpirit
-
-    /**
-     * temporary increase in speed
-     * @param amount to increase speed by
-     */
-    public void temporaryIncreaseSpeed(int amount) {
-        speed.setTemporaryModifier(amount);
-    } // END temporaryIncreaseSpeed
-
-    /**
-     * temporary increase in defence
-     * @param amount to increase defence by
-     */
-    public void temporaryIncreaseDefence(int amount) {
-        defence.setTemporaryModifier(amount);
-    }// END temporaryIncreaseDefence
-
-    /**
-     * temporary increase in friendship value
-     * @param amount to increase friendship value by
-     */
-    public void temporaryIncreaseFriendshipValue(int amount) {
-        friendshipValue.setTemporaryModifier(amount);
-    } // END temporaryIncreaseFriendshipValue
-
-    /**
-     * @since 1.1
-     * clears temporary modifiers
-     */
-    public void clearTemporaryModifiers() {
-        strength.clearModifier();
-        spirit.clearModifier();
-        speed.clearModifier();
-        defence.clearModifier();
-        friendshipValue.clearModifier();
-    } // END clearTemporaryModifiers
+    public void decreaseFriendshipValue(int amount) {
+        stats.decreaseFriendshipValue(amount);
+    }
 
     /**
      * @return the equipment
@@ -339,73 +298,13 @@ public class YoKai extends BaseTextProgram {
      */
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
-        statChange();
     } // END setEquipment
-
-    /**
-     * @since 1.2
-     * changes stats based on equipment
-     */
-    private void statChange() {
-        if (equipment != null) {
-            Map<ValidStats, Integer> statModifiers = equipment.getStatModifiers();
-            // loops over the map and applies the modifiers to the stats
-            for (Map.Entry<ValidStats, Integer> entry : statModifiers.entrySet()) {
-                ValidStats key = entry.getKey();
-                int value = entry.getValue();
-
-                if (key == ValidStats.ALL) {
-                    applyModifierToAll(value);
-                } else {
-                    applyModifierToStat(key, value);
-                }
-            }
-        }
-    }
-
-    /**
-     * This is to apply the modifier to the stat
-     * @param stat  the stat to apply the modifier to
-     * @param value the value of the modifier
-     * @throws IllegalArgumentException if the stat is not valid
-     */
-    private void applyModifierToStat(ValidStats stat, int value) {
-        switch (stat) {
-            case STRENGTH:
-                temporaryIncreaseStrength(value);
-                break;
-            case SPIRIT:
-                temporaryIncreaseSpirit(value);
-                break;
-            case SPEED:
-                temporaryIncreaseSpeed(value);
-                break;
-            case DEFENSE:
-                temporaryIncreaseDefence(value);
-                break;
-            default:
-                throw new IllegalArgumentException("Not a valid stat");
-        }
-    }
-
-    /**
-     * This is to apply the modifier to all stats
-     * @param value the value of the modifier
-     */
-    private void applyModifierToAll(int value) {
-        temporaryIncreaseStrength(value);
-        temporaryIncreaseSpirit(value);
-        temporaryIncreaseSpeed(value);
-        temporaryIncreaseDefence(value);
-        temporaryIncreaseFriendshipValue(value);
-    }
 
     /**
      * removes equipment
      */
     public void removeEquipment() {
         this.equipment = null;
-        clearTemporaryModifiers();
     } // END removeEquipment
 
     /**
@@ -444,44 +343,17 @@ public class YoKai extends BaseTextProgram {
         return specialMove;
     } // END getSpecialMove
 
-    public boolean isMoveInMoveset(BaseMove move){
+    public boolean isMoveInMoveset(Move move){
         return physicalMove.equals(move) || specialMove.equals(move);
     }
-
-    /**
-     * @return the statusEffect
-     */
-    public SecondaryEffect getStatusEffect() {
-        return statusEffect;
-    } // END getStatusEffect
-
-    /**
-     * @param statusEffect the statusEffect to set
-     */
-    public void setStatusEffect(SecondaryEffect statusEffect) {
-        this.statusEffect = statusEffect;
-    } // END setStatusEffect
 
     /**
      * Checks if the Yo Kai is defeated
      * @return true if the Yo Kai is defeated
      */
     public boolean isDefeated() {
-        return health.getCurrentHP() <= 0;
+        return stats.getHealth() <= 0;
     } // END isDefeated
-
-    /**
-     * Returns a random move
-     */
-    public BaseMove getRandomMove(){
-        int random = BaseTextProgram.randomInt(1,2);
-        if (random == 1){
-            return physicalMove;
-        }
-        else {
-            return specialMove;
-        }
-    } // END getRandomMove
 
 }
 
