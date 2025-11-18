@@ -101,4 +101,5 @@ public class Stats {
     public int getFriendshipValue() {
         return friendshipValue.getValue();
     }
+
 }

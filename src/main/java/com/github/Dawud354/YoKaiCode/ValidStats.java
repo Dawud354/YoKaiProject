@@ -7,6 +7,6 @@ package com.github.Dawud354.YoKaiCode;
  * @since 01/12/2024
  */
 public enum ValidStats {
-    HP, STRENGTH, DEFENSE, SPEED, SPIRIT,FRIENDSHIP,ALL;
+    HP, STRENGTH, DEFENCE, SPEED, SPIRIT,FRIENDSHIP,ALL;
 
 }

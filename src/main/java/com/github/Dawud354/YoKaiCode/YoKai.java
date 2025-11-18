@@ -60,7 +60,13 @@ public class YoKai {
      */
     @Override
     public String toString() {
-        String text = "My name is " + this.name + " and I am from the "+tribe+" tribe.";
+        String text = "{\nName:" + name + "\nStrength: " + stats.getStrength() + "\nSpirit: " + stats.getSpirit() 
+        + "\nDefence: " + stats.getDefence() + "\nSpeed: " + stats.getSpeed() + "\nHP: " + stats.getHealth() + "/" + stats.getMaxHealth()
+        +"\nFriendship Value: " + stats.getFriendshipValue();
+        if (equipment != null) {
+            text += "\nEquipment: " + equipment.getName();
+        }
+        text += "\n}";
         return text;
     } // End toString
 
@@ -298,14 +304,48 @@ public class YoKai {
      */
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
+        applyEquipment();
     } // END setEquipment
 
     /**
      * removes equipment
      */
     public void removeEquipment() {
+        removeEquipmentEffects();
         this.equipment = null;
     } // END removeEquipment
+
+    /**
+     * Applies the effects of the currently equipped equipment to the Yo Kai's stats.
+     */
+    private void applyEquipment() {
+        ValidStats stat = equipment.getStatType();
+        int amount = equipment.getAmount();
+        switch (stat) {
+            case STRENGTH -> increaseStrength(amount);
+            case SPIRIT -> increaseSpirit(amount);
+            case SPEED -> increaseSpeed(amount);
+            case DEFENCE -> increaseDefence(amount);
+            case FRIENDSHIP -> increaseFriendshipValue(amount);
+            default -> throw new IllegalArgumentException("Invalid stat type");
+        }
+    }
+
+    /**
+     * Removes the effects of the currently equipped equipment from the Yo Kai's stats.
+     */
+    private void removeEquipmentEffects() {
+        ValidStats stat = equipment.getStatType();
+        int amount = equipment.getAmount();
+        switch (stat) {
+            case STRENGTH -> decreaseStrength(amount);
+            case SPIRIT -> decreaseSpirit(amount);
+            case SPEED -> decreaseSpeed(amount);
+            case DEFENCE -> decreaseDefence(amount);
+            case FRIENDSHIP -> decreaseFriendshipValue(amount);
+            default -> throw new IllegalArgumentException("Invalid stat type");
+        }
+    }
 
     /**
      * @param physicalMove the physicalMove to set
