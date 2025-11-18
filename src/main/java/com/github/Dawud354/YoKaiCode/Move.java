@@ -4,7 +4,7 @@ import com.github.Dawud354.GeneralMethods.BaseTextProgram;
 /**
  * This is the base class for all moves yo kai can use
  */
-public abstract class BaseMove {
+public abstract class Move {
     String name;
     String description;
     int power;
@@ -12,7 +12,7 @@ public abstract class BaseMove {
     MoveCategory category;
 
 
-    public BaseMove(String name,String description, int power, int accuracy, MoveCategory category) {
+    public Move(String name,String description, int power, int accuracy, MoveCategory category) {
         setName(name);
         setPower(power);
         setAccuracy(accuracy);
