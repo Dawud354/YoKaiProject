@@ -6,7 +6,8 @@ import com.github.Dawud354.GeneralMethods.BaseTextProgram;
  * This class represents a status move that can be used in battle
  * NOTE: THIS CLASS IS NOT BEING USED. NOT COMPLETED
  */
-public class StatusMove extends BaseMove {
+@Deprecated
+public class StatusMove extends Move {
     SecondaryEffect secondaryEffect;
     private ValidStats statToChange;
     private int changeAmount;
