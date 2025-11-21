@@ -10,11 +10,10 @@ import com.github.Dawud354.YoKaiCode.*;
  */
 public class NextMove implements Comparable<NextMove> {
     private final YoKai user;
-    private final BaseMove move;
+    private final Move move;
     private YoKai target;
-    private final int turnCount;
-    private int damageForUserOutput;
-
+    private int priority;
+    
 
     /**
      * Constructor for the class
@@ -23,15 +22,23 @@ public class NextMove implements Comparable<NextMove> {
      * @param target the YoKai that will be targeted
      * @throws IllegalArgumentException if user, move or target is null
      */
-    public NextMove(YoKai user, BaseMove move, YoKai target,int turnCount) {
+    public NextMove(YoKai user, Move move, YoKai target) {
         if (user == null || move == null || target == null) {
             throw new IllegalArgumentException("User, move and target cannot be null.");
         }
         this.user = user;
         this.move = move;
         this.target = target;
-        this.turnCount = turnCount;
+        this.priority = 0;
+        calculatePriority();
     } // END NextMove
+
+    /**
+     * Calculates the priority of the move based on the user's speed
+     */
+    private void calculatePriority() {
+        this.priority = user.getSpeed();
+    } // END calculatePriority
 
     /**
      * @return the user
@@ -43,7 +50,7 @@ public class NextMove implements Comparable<NextMove> {
     /**
      * @return the move
      */
-    public BaseMove getMove() {
+    public Move getMove() {
         return move;
     } // END getMove
 
@@ -54,18 +61,8 @@ public class NextMove implements Comparable<NextMove> {
         return target;
     } // END getTarget
 
-    // this is to help battle front end know how much damage the move did
-    public int getDamageForUserOutput() {
-        return damageForUserOutput;
-    }
-
-    public void setDamageForUserOutput(int damageForUserOutput) {
-        this.damageForUserOutput = damageForUserOutput;
-    }
-
     /**
      *  allows target to be changed
-     *
      */
     public void changeTarget(YoKai target) {
         if (target == null) {
@@ -76,12 +73,7 @@ public class NextMove implements Comparable<NextMove> {
 
     @Override
     public int compareTo(NextMove nextMove) {
-        if (this.turnCount != nextMove.turnCount) {
-            return Integer.compare(this.turnCount, nextMove.turnCount); // Lower turn count comes first
-        }
-        else {
-            return Integer.compare(nextMove.user.getSpeed(),this.user.getSpeed()); // Higher speed comes first
-        }
+        return Integer.compare(nextMove.priority, this.priority);
     } // END compareTo
 
     @Override
