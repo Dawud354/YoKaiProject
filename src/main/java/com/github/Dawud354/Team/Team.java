@@ -13,8 +13,8 @@ import com.github.Dawud354.YoKaiCode.YoKai;
  */
 
 public class Team implements Iterable<YoKai> {
-    final int MAX_TEAM_SIZE = 6;
-    final int MAX_ACTIVE = 3;
+    public static final int MAX_TEAM_SIZE = 6;
+    public static final int MAX_ACTIVE = 3;
     final private List<YoKai> team = new ArrayList<>();
     // store index of active YoKai
     final private List<Integer> active = new ArrayList<>();
@@ -172,12 +172,33 @@ public class Team implements Iterable<YoKai> {
         return count;
     } // END getAliveCount
 
+    /**
+     * Returns an array of active YoKai in the team
+     * @return an array of active YoKai
+     */
     public YoKai[] getActive(){
         YoKai[] activeYoKai = new YoKai[active.size()];
         for (int i = 0; i < active.size(); i++) {
             activeYoKai[i] = team.get(active.get(i));
         }
         return activeYoKai;
+    }
+
+    /**
+     * Checks if there are no active YoKai in the team
+     * @return true if there are no active YoKai, false otherwise
+     */
+    public boolean isActiveEmpty(){
+        return active.isEmpty();
+    }
+
+    /**
+     * Checks if a YoKai is in the team
+     * @param yoKai the YoKai to check
+     * @return true if the YoKai is in the team, false otherwise
+     */
+    public boolean contains(YoKai yoKai){
+        return team.contains(yoKai);
     }
 
     @Override
