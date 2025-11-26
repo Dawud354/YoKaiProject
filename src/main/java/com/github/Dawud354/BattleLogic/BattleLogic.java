@@ -37,7 +37,7 @@ public class BattleLogic {
         return turnCount;
     }
 
-    public void incrementTurnCount() {
+    private void incrementTurnCount() {
         turnCount++;
     }
 
@@ -111,6 +111,7 @@ public class BattleLogic {
         // clears the queue and returns null
         if (nextMoves.isEmpty()){
             canAdd = true;
+            incrementTurnCount();
             return null;
         }
         if(isBattleOver()){
