@@ -1,40 +1,40 @@
 package com.github.Dawud354.BattleLogic;
 
 import com.github.Dawud354.GeneralMethods.BaseTextProgram;
+import com.github.Dawud354.Team.EnemyTeam;
+import com.github.Dawud354.Team.PlayerTeam;
+import com.github.Dawud354.Team.Team;
 
 import java.util.concurrent.TimeUnit;
 
-import com.github.Dawud354.YoKaiCode.BaseMove;
-import com.github.Dawud354.YoKaiCode.Team;
+import com.github.Dawud354.YoKaiCode.Move;
 import com.github.Dawud354.YoKaiCode.YoKai;
 
 public class BattleFrontEnd extends BaseTextProgram {
-    private final BattleManagement battleManagement;
+    private final BattleLogic battleLogic;
 
-    public BattleFrontEnd(Team playerTeam, Team enemyTeam) throws InterruptedException {
-        this.battleManagement = new BattleManagement(playerTeam, enemyTeam);
+    public BattleFrontEnd(PlayerTeam playerTeam, EnemyTeam enemyTeam) throws InterruptedException {
+        this.battleLogic = new BattleLogic(playerTeam, enemyTeam);
         startBattle();
     }
 
     private void startBattle() throws InterruptedException {
-        battleManagement.startBattle();
-        while (!battleManagement.isBattleOver()) {
+        battleLogic.startBattle();
+        while (!battleLogic.isBattleOver()) {
             printCurrentTurn();
             askUserForMoves();
-            addEnemyMovesToQueue();
             executeAllMovesQueue();
-            battleManagement.incrementTurnCount();
         }
         outputWhoWon();
 
     }
 
     private void printCurrentTurn() {
-        print("Current Turn: " + battleManagement.getTurnCount());
+        print("Current Turn: " + battleLogic.getTurnCount());
         print("\nPlayer Team:");
-        printTeam(battleManagement.getPlayerTeam());
+        printTeam(battleLogic.getPlayerTeam());
         print("\nEnemy Team:");
-        printTeam(battleManagement.getEnemyTeam());
+        printTeam(battleLogic.getEnemyTeam());
     }
 
     private void printTeam(Team team) {
@@ -47,7 +47,7 @@ public class BattleFrontEnd extends BaseTextProgram {
                 yoKaiHP[i] = "Defeated";
             }
             else {
-                yoKaiHP[i] = "HP: "+team.getTeam().get(i).getHPAsString();
+                yoKaiHP[i] = "HP:";
             }
         }
         for (String name: yoKaiNames) {
@@ -61,16 +61,16 @@ public class BattleFrontEnd extends BaseTextProgram {
     }
 
     private void askUserForMoves() {
-        for (YoKai user: battleManagement.getPlayerTeam().getTeam()) {
+        for (YoKai user: battleLogic.getPlayerTeam().getTeam()) {
             if (!user.isDefeated()) {
-                BaseMove move = askUserForMove(user);
-                YoKai target = askForTarget(battleManagement.getEnemyTeam());
-                battleManagement.addUserMoveToQueue(user, move, target);
+                Move move = askUserForMove(user);
+                YoKai target = askForTarget(battleLogic.getEnemyTeam());
+                battleLogic.addUserMoveToQueue(user, move, target);
             }
         }
     }
 
-    private BaseMove askUserForMove(YoKai user) {
+    private Move askUserForMove(YoKai user) {
         print("Choose a move for " + user.getName());
         print("1. " + user.getPhysicalMove().getName());
         print("2. " + user.getSpecialMove().getName());
@@ -104,18 +104,18 @@ public class BattleFrontEnd extends BaseTextProgram {
 
     private int getUserTarget(){
         int target = inputPositiveInt();
-        while (target < 1 || target > battleManagement.getEnemyTeam().getTeamSize()){
-            print("Invalid target number. Please enter a number between 1 and " + battleManagement.getEnemyTeam().getTeamSize() + ": ");
+        while (target < 1 || target > battleLogic.getEnemyTeam().getTeamSize()){
+            print("Invalid target number. Please enter a number between 1 and " + battleLogic.getEnemyTeam().getTeamSize() + ": ");
             target = inputPositiveInt();
         }
         return target;
     }
 
     private void executeAllMovesQueue() throws InterruptedException {
-        NextMove nextMove = battleManagement.executeMoveQueue();
+        NextMove nextMove = battleLogic.executeMoveQueue();
         while (nextMove != null){
             outputMoveToUser(nextMove);
-            nextMove = battleManagement.executeMoveQueue();
+            nextMove = battleLogic.executeMoveQueue();
         }
     }
 
@@ -124,28 +124,17 @@ public class BattleFrontEnd extends BaseTextProgram {
         int damage = nextMove.getDamageForUserOutput();
         TimeUnit.SECONDS.sleep(1);
         print(nextMove.getTarget().getName()+" took "+damage+" damage.");
-        print(nextMove.getTarget().getName()+" has "+nextMove.getTarget().getHPAsString()+" HP.");
+        print(nextMove.getTarget().getName()+" has "+" HP.");
         TimeUnit.SECONDS.sleep(2);
     }
 
     private void outputWhoWon(){
-        if (battleManagement.getPlayerTeam().isTeamDefeated()){
+        if (battleLogic.getPlayerTeam().isTeamDefeated()){
             print("You lost!");
         }
         else {
             print("You won!");
         }
     }
-
-    private void addEnemyMovesToQueue(){
-        for (YoKai user: battleManagement.getEnemyTeam().getTeam()){
-            if (!user.isDefeated()){
-                BaseMove move = user.getRandomMove();
-                YoKai target = battleManagement.getPlayerTeam().getRandomYoKai();
-                battleManagement.addEnemyMoveToQueue(user, move, target);
-            }
-        }
-    }
-
 
 }
