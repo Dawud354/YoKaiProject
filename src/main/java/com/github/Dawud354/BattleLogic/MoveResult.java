@@ -41,8 +41,8 @@ public class MoveResult {
         this.moveName = moveName;
     }
 
-    public void setIsUserDead(boolean isUserDead) {
-        this.isTargetDead = isUserDead;
+    public void setIsTargetDead(boolean isTargetDead) {
+        this.isTargetDead = isTargetDead;
     }
 
     public boolean getIsTargetDead() {
