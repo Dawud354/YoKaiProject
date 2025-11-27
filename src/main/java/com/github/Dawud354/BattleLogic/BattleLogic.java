@@ -127,15 +127,17 @@ public class BattleLogic {
     }
 
     private MoveResult executeMove(NextMove nextMove) {
-        MoveResult result = new MoveResult(nextMove.getUser().getName(), nextMove.getTarget().getName(), "EMPTY",0);
+        MoveResult result = new MoveResult(nextMove.getUser().getName(), nextMove.getTarget().getName(), "EMPTY",0,0);
         if (isTargetDead(nextMove)) {
-            return null;
+            result.setIsTargetDead(true);
+            return result;
         }
         if (nextMove.getMove().getCategory() == MoveCategory.PHYSICAL) {
             physicalMove(nextMove, result);
         } else if (nextMove.getMove().getCategory() == MoveCategory.SPECIAL) {
             specialMove(nextMove, result);
         }
+        result.setRemainingHealth(nextMove.getTarget().getHP());
         return result;
     }
 
