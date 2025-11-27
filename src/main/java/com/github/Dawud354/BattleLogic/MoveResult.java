@@ -7,7 +7,7 @@ public class MoveResult {
     private String moveName;
     private int damage;
     private int remainingHealth;
-    private boolean isUserDead = false;
+    private boolean isTargetDead = false;
 
     public MoveResult(String user, String target, String moveName, int damage, int remainingHealth) {
         this.target = target;
@@ -42,11 +42,11 @@ public class MoveResult {
     }
 
     public void setIsUserDead(boolean isUserDead) {
-        this.isUserDead = isUserDead;
+        this.isTargetDead = isUserDead;
     }
 
-    public boolean getIsUserDead() {
-        return isUserDead;
+    public boolean getIsTargetDead() {
+        return isTargetDead;
     }
 
     public int getRemainingHealth() {
