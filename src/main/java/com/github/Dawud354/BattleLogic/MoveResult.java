@@ -2,27 +2,27 @@ package com.github.Dawud354.BattleLogic;
 
 public class MoveResult {
 
-    private String user;
-    private String target;
+    private String userName;
+    private String targetName;
     private String moveName;
     private int damage;
     private int remainingHealth;
     private boolean isTargetDead = false;
 
-    public MoveResult(String user, String target, String moveName, int damage, int remainingHealth) {
-        this.target = target;
-        this.user = user;
+    public MoveResult(String userName, String targetName, String moveName, int damage, int remainingHealth) {
+        this.targetName = targetName;
+        this.userName = userName;
         this.moveName = moveName;
         this.damage = damage;
         this.remainingHealth = remainingHealth;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getTarget() {
-        return target;
+    public String getTargetName() {
+        return targetName;
     }
 
     public int getDamage() {
