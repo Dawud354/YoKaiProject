@@ -41,15 +41,16 @@ public class BattleFrontEnd extends BaseTextProgram {
         // Print Yo Kai names
         String[] yoKaiNames = team.getTeamNames();
         String[] yoKaiHP = new  String[yoKaiNames.length];
-        for (int i = 0; i < yoKaiNames.length; i++) {
-
-            if (team.getTeam().get(i).isDefeated()) {
+        int i = 0;
+        for (YoKai yk : team) {
+            if (yk.isDefeated()) {
                 yoKaiHP[i] = "Defeated";
             }
             else {
-                yoKaiHP[i] = "HP:";
+                yoKaiHP[i] = "HP: " + yk.getHP();
             }
-        }
+            i++;
+            }
         for (String name: yoKaiNames) {
             System.out.printf("%-20s", name);
         }
@@ -61,11 +62,11 @@ public class BattleFrontEnd extends BaseTextProgram {
     }
 
     private void askUserForMoves() {
-        for (YoKai user: battleLogic.getPlayerTeam().getTeam()) {
+        for (YoKai user: battleLogic.getPlayerTeam()) {
             if (!user.isDefeated()) {
                 Move move = askUserForMove(user);
                 YoKai target = askForTarget(battleLogic.getEnemyTeam());
-                battleLogic.addUserMoveToQueue(user, move, target);
+                battleLogic.addUserMove(user, move, target);
             }
         }
     }
@@ -90,41 +91,44 @@ public class BattleFrontEnd extends BaseTextProgram {
 
     private YoKai askForTarget(Team enemyTeam) {
         print("Choose a target: ");
-        for (YoKai yoKai: enemyTeam.getTeam()) {
-            print((enemyTeam.getTeam().indexOf(yoKai) + 1) + ". " + yoKai.getName());
+        int i = 0;
+        YoKai[] enemyActive = enemyTeam.getActive();
+        for (YoKai yoKai: enemyActive) {
+            print((i + 1) + ". " + yoKai.getName());
+            i++;
         }
-        int targetNumber = getUserTarget();
-        while (enemyTeam.getTeam().get(targetNumber - 1).isDefeated()) {
+        int targetNumber = getUserTarget(Team.MAX_ACTIVE);
+        while (enemyActive[targetNumber - 1].isDefeated()) {
             print("Target is already defeated. Please choose another target: ");
-            targetNumber = getUserTarget();
+            targetNumber = getUserTarget(Team.MAX_ACTIVE);
         }
-        return enemyTeam.getTeam().get(targetNumber - 1);
+        return enemyActive[targetNumber - 1];
     } // END askForTarget
 
 
-    private int getUserTarget(){
+    private int getUserTarget(int max){
         int target = inputPositiveInt();
-        while (target < 1 || target > battleLogic.getEnemyTeam().getTeamSize()){
-            print("Invalid target number. Please enter a number between 1 and " + battleLogic.getEnemyTeam().getTeamSize() + ": ");
+        battleLogic.getEnemyTeam();
+        while (target < 1 || target > max){
+            print("Invalid target number. Please enter a number between 1 and " + max + ": ");
             target = inputPositiveInt();
         }
         return target;
     }
 
     private void executeAllMovesQueue() throws InterruptedException {
-        NextMove nextMove = battleLogic.executeMoveQueue();
-        while (nextMove != null){
-            outputMoveToUser(nextMove);
-            nextMove = battleLogic.executeMoveQueue();
+        MoveResult moveResult = battleLogic.executeNextMove();
+        while (moveResult != null){
+            outputMoveToUser(moveResult);
+            moveResult = battleLogic.executeNextMove();
         }
     }
 
-    private void outputMoveToUser(NextMove nextMove) throws InterruptedException {
-        print(nextMove.getUser().getName()+" used "+nextMove.getMove().getName()+" on "+nextMove.getTarget().getName());
-        int damage = nextMove.getDamageForUserOutput();
+    private void outputMoveToUser(MoveResult moveResult) throws InterruptedException {
+        print(moveResult.getUserName()+" used "+moveResult.getMoveName()+" on "+moveResult.getTargetName());
         TimeUnit.SECONDS.sleep(1);
-        print(nextMove.getTarget().getName()+" took "+damage+" damage.");
-        print(nextMove.getTarget().getName()+" has "+" HP.");
+        print(moveResult.getTargetName()+" took "+moveResult.getDamage()+" damage.");
+        print(moveResult.getTargetName()+" has "+moveResult.getRemainingHealth()+" HP.");
         TimeUnit.SECONDS.sleep(2);
     }
 
