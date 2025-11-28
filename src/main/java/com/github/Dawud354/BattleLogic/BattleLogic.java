@@ -2,8 +2,6 @@ package com.github.Dawud354.BattleLogic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
 
 import com.github.Dawud354.Team.PlayerTeam;
 import com.github.Dawud354.Team.Team;
