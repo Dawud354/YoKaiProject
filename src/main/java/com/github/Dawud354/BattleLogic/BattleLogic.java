@@ -15,7 +15,7 @@ public class BattleLogic {
     private final EnemyTeam enemyTeam;
     private int turnCount = 1;
     private boolean canAdd = false;
-    List<NextMove> nextMoves = new ArrayList<>();
+    private List<NextMove> nextMoves = new ArrayList<>();
 
     public BattleLogic(PlayerTeam playerTeam, EnemyTeam enemyTeam) {
         if (playerTeam == null || enemyTeam == null) {
