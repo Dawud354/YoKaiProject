@@ -173,7 +173,11 @@ public class BattleLogic {
         double randomFactor = 0.85 + Math.random() * 0.15; // Random value between 0.85 and 1.0
         targetDefence = Math.max(targetDefence, 1); // Ensure defense is at least 1
         double movePowerD = Math.max(movePower, 1); // Ensure move power is at least 1
-        return (int) ((userStrength/2.0) * ( movePowerD / targetDefence) * randomFactor);
+        int damage = (int) ((userStrength/2.0) * ( movePowerD / targetDefence) * randomFactor);
+        if (damage <= 0) {
+            damage = 1;
+        }
+        return damage;
     }
 
 }
