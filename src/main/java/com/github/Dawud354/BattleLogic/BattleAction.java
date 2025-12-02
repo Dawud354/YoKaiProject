@@ -24,5 +24,5 @@ public abstract class BattleAction implements Comparable<BattleAction> {
     } // END compareTo
 
     public abstract void execute();
-
+    public abstract void calculatePriority();
 }
