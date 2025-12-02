@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.Dawud354.Team.PlayerTeam;
-import com.github.Dawud354.Team.Team;
 import com.github.Dawud354.Team.EnemyTeam;
 import com.github.Dawud354.YoKaiCode.*;
 
 public class BattleLogic {
-    private final PlayerTeam playerTeam;
-    private final EnemyTeam enemyTeam;
-    private int turnCount = 1;
+    BattleContext battleContext;
     private boolean canAdd = false;
     private List<BattleAction> nextMoves = new ArrayList<>();
 
@@ -19,43 +16,32 @@ public class BattleLogic {
         if (playerTeam == null || enemyTeam == null) {
             throw new IllegalArgumentException("Teams must be provided");
         }
-        this.playerTeam = playerTeam;
-        this.enemyTeam = enemyTeam;
+        battleContext = new BattleContext(playerTeam, enemyTeam);
     }
 
     public PlayerTeam getPlayerTeam() {
-        return playerTeam;
+        return battleContext.getPlayerTeam();
     }
 
     public EnemyTeam getEnemyTeam() {
-        return enemyTeam;
+        return battleContext.getEnemyTeam();
     }
 
     public int getTurnCount() {
-        return turnCount;
+        return battleContext.getTurnCount();
     }
 
     private void incrementTurnCount() {
-        turnCount++;
+        battleContext.incrementTurnCount();
     }
 
     public void startBattle() {
-        if (playerTeam.isActiveEmpty() || enemyTeam.isActiveEmpty()) {
+        if (battleContext.getPlayerTeam().isActiveEmpty() || battleContext.getEnemyTeam().isActiveEmpty()) {
             throw new IllegalStateException("Cannot start battle with no active YoKai in one of the teams.");
         }
-        turnCount = 1;
+        battleContext.resetTurnCount();
         nextMoves.clear();
         canAdd = true;
-    }
-
-    private Team checkYoKaiTeam(YoKai yoKai){
-        if (playerTeam.contains(yoKai)){
-            return playerTeam;
-        }
-        else if (enemyTeam.contains(yoKai)){
-            return enemyTeam;
-        }
-        return null;
     }
 
     /**
@@ -63,7 +49,7 @@ public class BattleLogic {
      * @return true if the battle is over, false otherwise
      */
     public boolean isBattleOver() {
-        return playerTeam.isTeamDefeated() || enemyTeam.isTeamDefeated();
+        return getPlayerTeam().isTeamDefeated() || getEnemyTeam().isTeamDefeated();
     }
 
     public boolean addUserMove(YoKai user, Move move, YoKai target) {
@@ -73,7 +59,7 @@ public class BattleLogic {
             return false;
         }
         boolean added = false;
-        if (playerTeam.contains(user) && user.isMoveInMoveset(move) && enemyTeam.contains(target)) {
+        if (getPlayerTeam().contains(user) && user.isMoveInMoveset(move) && getEnemyTeam().contains(target)) {
             NextMove nextMove = new NextMove(user, move, target);
             nextMoves.add(nextMove);
             added = true;
@@ -86,8 +72,8 @@ public class BattleLogic {
     }
 
     private void addEnemyMoves() {
-        YoKai[] team = playerTeam.getActive();
-        for (YoKai y : enemyTeam.getActive()) {
+        YoKai[] team = getPlayerTeam().getActive();
+        for (YoKai y : getEnemyTeam().getActive()) {
             // generate a random number between 0 and 1. 
             // 0 is physical move, 1 is special move
             int x = (int) (Math.random() * 2);
