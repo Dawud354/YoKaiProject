@@ -6,8 +6,12 @@ public abstract class BattleAction implements Comparable<BattleAction> {
     private YoKai user;
     private int priority;
 
-    public BattleAction(YoKai user) {
+    public BattleAction(YoKai user, int priority) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
         this.user = user;
+        this.priority = priority;
     }
 
     public YoKai getUser() {
@@ -16,6 +20,10 @@ public abstract class BattleAction implements Comparable<BattleAction> {
 
     public int getPriority() {
         return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     @Override
