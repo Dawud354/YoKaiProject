@@ -71,7 +71,7 @@ public class Stat {
      * @throws IllegalArgumentException if the amount is not positive
      */
     public void decrease(int amount) {
-        if (amount <= 0) {
+        if (amount < 0) {
             throw new IllegalArgumentException("Decrease amount must be positive.");
         }
         baseValue -= amount;
