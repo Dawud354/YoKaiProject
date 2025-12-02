@@ -31,4 +31,8 @@ public class BattleContext {
         turnCount++;
     }
 
+    public void resetTurnCount() {
+        turnCount = 1;
+    }
+
 }
