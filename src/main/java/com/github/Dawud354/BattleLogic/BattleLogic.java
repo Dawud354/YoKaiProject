@@ -86,15 +86,17 @@ public class BattleLogic {
     }
 
     private void addEnemyMoves() {
+        YoKai[] team = playerTeam.getActive();
         for (YoKai y : enemyTeam.getActive()) {
             // generate a random number between 0 and 1. 
             // 0 is physical move, 1 is special move
             int x = (int) (Math.random() * 2);
+            int randomTargetIndex = (int) (Math.random() * team.length);
             NextMove nextMove;
             if ( x == 0){
-                nextMove = new NextMove(y, y.getPhysicalMove(), null);
+                nextMove = new NextMove(y, y.getPhysicalMove(), team[randomTargetIndex]);
             }else{
-                nextMove = new NextMove(y, y.getSpecialMove(), null);
+                nextMove = new NextMove(y, y.getSpecialMove(), team[randomTargetIndex]);
             }
             nextMoves.add(nextMove);
         }
