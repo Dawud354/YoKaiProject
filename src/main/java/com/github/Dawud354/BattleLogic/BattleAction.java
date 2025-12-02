@@ -32,6 +32,6 @@ public abstract class BattleAction implements Comparable<BattleAction> {
         return Integer.compare(action.priority, this.priority);
     } // END compareTo
 
-    public abstract MoveResult execute();
+    public abstract MoveResult execute(BattleContext battleContext);
     public abstract void calculatePriority();
 }

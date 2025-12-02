@@ -108,6 +108,6 @@ public class BattleLogic {
         if (nextMove == null) {
             return null;
         }
-        return nextMove.execute();
+        return nextMove.execute(battleContext);
     }
 }
