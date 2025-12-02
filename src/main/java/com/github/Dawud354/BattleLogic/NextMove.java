@@ -8,11 +8,9 @@ import com.github.Dawud354.YoKaiCode.*;
  * @version 1.0
  * @since 03/12/2024
  */
-public class NextMove implements Comparable<NextMove> {
-    private final YoKai user;
+public class NextMove extends BattleAction  {
     private final Move move;
     private YoKai target;
-    private int priority;
     
 
     /**
@@ -23,29 +21,21 @@ public class NextMove implements Comparable<NextMove> {
      * @throws IllegalArgumentException if user, move or target is null
      */
     public NextMove(YoKai user, Move move, YoKai target) {
-        if (user == null || move == null || target == null) {
+        super(user, user.getSpeed());
+        if (move == null || target == null) {
             throw new IllegalArgumentException("User, move and target cannot be null.");
         }
-        this.user = user;
         this.move = move;
         this.target = target;
-        this.priority = 0;
-        calculatePriority();
     } // END NextMove
 
     /**
      * Calculates the priority of the move based on the user's speed
      */
-    private void calculatePriority() {
-        this.priority = user.getSpeed();
+    @Override
+    public void calculatePriority() {
+        setPriority(getUser().getSpeed());
     } // END calculatePriority
-
-    /**
-     * @return the user
-     */
-    public YoKai getUser() {
-        return user;
-    } // END getUser
 
     /**
      * @return the move
@@ -72,13 +62,13 @@ public class NextMove implements Comparable<NextMove> {
     } // END setTarget
 
     @Override
-    public int compareTo(NextMove nextMove) {
-        return Integer.compare(nextMove.priority, this.priority);
-    } // END compareTo
+    public void execute() {
+        // Implementation for executing the move
+    }
 
     @Override
     public String toString() {
-        return user.getName() + " will use " + move.getName() + " on " + target.getName();
+        return getUser().getName() + " will use " + move.getName() + " on " + target.getName();
     } // END toString
 
 }
