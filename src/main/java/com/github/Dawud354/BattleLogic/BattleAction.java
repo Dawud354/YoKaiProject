@@ -1,5 +1,6 @@
 package com.github.Dawud354.BattleLogic;
 
+import com.github.Dawud354.YoKaiCode.Move;
 import com.github.Dawud354.YoKaiCode.YoKai;
 
 public abstract class BattleAction implements Comparable<BattleAction> {
@@ -31,6 +32,6 @@ public abstract class BattleAction implements Comparable<BattleAction> {
         return Integer.compare(action.priority, this.priority);
     } // END compareTo
 
-    public abstract void execute();
+    public abstract MoveResult execute();
     public abstract void calculatePriority();
 }

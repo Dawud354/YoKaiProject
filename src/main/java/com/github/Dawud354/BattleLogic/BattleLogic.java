@@ -13,7 +13,7 @@ public class BattleLogic {
     private final EnemyTeam enemyTeam;
     private int turnCount = 1;
     private boolean canAdd = false;
-    private List<NextMove> nextMoves = new ArrayList<>();
+    private List<BattleAction> nextMoves = new ArrayList<>();
 
     public BattleLogic(PlayerTeam playerTeam, EnemyTeam enemyTeam) {
         if (playerTeam == null || enemyTeam == null) {
@@ -118,66 +118,10 @@ public class BattleLogic {
             nextMoves.clear();
             return null;
         }
-        NextMove nextMove = nextMoves.remove(0);
+        BattleAction nextMove = nextMoves.remove(0);
         if (nextMove == null) {
             return null;
         }
-        MoveResult moveResult = executeMove(nextMove);
-        return moveResult;
+        return nextMove.execute();
     }
-
-    private MoveResult executeMove(NextMove nextMove) {
-        MoveResult result = new MoveResult(nextMove.getUser().getName(), nextMove.getTarget().getName(), "EMPTY",0,0);
-        if (isTargetDead(nextMove)) {
-            result.setIsTargetDead(true);
-            return result;
-        }
-        if (nextMove.getMove().getCategory() == MoveCategory.PHYSICAL) {
-            physicalMove(nextMove, result);
-        } else if (nextMove.getMove().getCategory() == MoveCategory.SPECIAL) {
-            specialMove(nextMove, result);
-        }
-        result.setRemainingHealth(nextMove.getTarget().getHP());
-        return result;
-    }
-
-    private boolean isTargetDead(NextMove nextMove){
-        if (nextMove.getTarget().isDefeated()){
-            return true;
-        }
-        return false;
-    }
-
-    public void physicalMove(NextMove nextMove,MoveResult moveResult){
-        YoKai user = nextMove.getUser();
-        Move move = nextMove.getMove();
-        YoKai target = nextMove.getTarget();
-        int damage = calculateDamage(user.getStrength(), target.getDefence(), move.getPower());
-        moveResult.setDamage(damage);
-        moveResult.setMoveName(move.getName());
-        target.decreaseHP(damage);
-    }
-
-    public void specialMove(NextMove nextMove, MoveResult moveResult){
-        YoKai user = nextMove.getUser();
-        Move move = nextMove.getMove();
-        YoKai target = nextMove.getTarget();
-        int damage = calculateDamage(user.getSpirit(), target.getDefence(), move.getPower());
-        moveResult.setDamage(damage);
-        moveResult.setMoveName(move.getName());
-        target.decreaseHP(damage);
-    }
-
-
-    public int calculateDamage(int userStrength, int targetDefence, int movePower){
-        double randomFactor = 0.85 + Math.random() * 0.15; // Random value between 0.85 and 1.0
-        targetDefence = Math.max(targetDefence, 1); // Ensure defense is at least 1
-        double movePowerD = Math.max(movePower, 1); // Ensure move power is at least 1
-        int damage = (int) ((userStrength/2.0) * ( movePowerD / targetDefence) * randomFactor);
-        if (damage <= 0) {
-            damage = 1;
-        }
-        return damage;
-    }
-
 }

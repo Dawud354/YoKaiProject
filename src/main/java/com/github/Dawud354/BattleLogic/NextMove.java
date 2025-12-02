@@ -62,8 +62,10 @@ public class NextMove extends BattleAction  {
     } // END setTarget
 
     @Override
-    public void execute() {
+    public MoveResult execute() {
         // Implementation for executing the move
+        MoveResult r = new MoveResult("this","is","not done",1,1);
+        return r;
     }
 
     @Override
