@@ -4,19 +4,20 @@ import com.github.Dawud354.YoKaiCode.*;
 
 /**
  * This class represents the next move to be executed in the battle
+ * 
  * @author dawud
  * @version 1.0
  * @since 03/12/2024
  */
-public class NextMove extends BattleAction  {
+public class NextMove extends BattleAction {
     private final Move move;
     private YoKai target;
-    
 
     /**
      * Constructor for the class
-     * @param user the YoKai that will use the move
-     * @param move the move to be used
+     * 
+     * @param user   the YoKai that will use the move
+     * @param move   the move to be used
      * @param target the YoKai that will be targeted
      * @throws IllegalArgumentException if user, move or target is null
      */
@@ -52,7 +53,7 @@ public class NextMove extends BattleAction  {
     } // END getTarget
 
     /**
-     *  allows target to be changed
+     * allows target to be changed
      */
     public void changeTarget(YoKai target) {
         if (target == null) {
@@ -64,8 +65,31 @@ public class NextMove extends BattleAction  {
     @Override
     public MoveResult execute(BattleContext battleContext) {
         // Implementation for executing the move
-        MoveResult r = new MoveResult("this","is","not done",1,1);
-        return r;
+        MoveResult result = new MoveResult(getUser().getName(), getTarget().getName(), move.getName(),0,0);
+        if (getUser().isDefeated()) {
+            result.setIsTargetDead(true);
+            return result;
+        }
+        int damage = 0;
+        if (getMove().getCategory() == MoveCategory.PHYSICAL) {
+            damage = calculateDamage(getUser().getStrength(), target.getDefence(), move.getPower());
+        } else if (getMove().getCategory() == MoveCategory.SPECIAL) {
+            damage = calculateDamage(getUser().getSpirit(), target.getDefence(), move.getPower());
+        }
+        getTarget().decreaseHP(damage);
+        result.setRemainingHealth(getTarget().getHP());
+        return result;
+    }
+
+    private int calculateDamage(int userStrength, int targetDefence, int movePower) {
+        double randomFactor = 0.85 + Math.random() * 0.15; // Random value between 0.85 and 1.0
+        targetDefence = Math.max(targetDefence, 1); // Ensure defense is at least 1
+        double movePowerD = Math.max(movePower, 1); // Ensure move power is at least 1
+        int damage = (int) ((userStrength / 2.0) * (movePowerD / targetDefence) * randomFactor);
+        if (damage <= 0) {
+            damage = 1;
+        }
+        return damage;
     }
 
     @Override
