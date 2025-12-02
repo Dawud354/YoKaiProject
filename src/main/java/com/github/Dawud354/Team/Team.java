@@ -206,4 +206,22 @@ public class Team implements Iterable<YoKai> {
         return team.iterator();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Team{\n");
+        sb.append("Active YoKai:\n");
+        for (int index :  active){
+            sb.append("").append(team.get(index)).append("\n");
+        }
+        sb.append("Benched YoKai:\n");
+        for (int i = 0; i < team.size(); i++) {
+            if (!active.contains(i)) {
+                sb.append("").append(team.get(i)).append("\n");
+            }
+        }
+        sb.append('}');
+        return sb.toString();
+    }
+
 }
