@@ -83,7 +83,7 @@ public class BattleLogic {
         }
     }
 
-    public MoveResult executeNextMove() {
+    public BattleResult executeNextMove() {
         // only execute when player has finished adding moves
         if (canAdd == true){
             return null;
