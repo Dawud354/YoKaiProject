@@ -17,15 +17,15 @@ public class SwitchAction extends BattleAction {
     }
 
     @Override
-    public MoveResult execute(BattleContext battleContext) {
+    public BattleResult execute(BattleContext battleContext) {
         // Implementation for executing the switch action
         boolean result = battleContext.getPlayerTeam().swap(getUser(), benched);
-        MoveResult moveResult;
+        String message;
         if (result ==  true) {
-            moveResult = new MoveResult(getUser().getName(), benched.getName(), "Switch", 0, 0);
+            message = "switched out ";
         }else{
-            moveResult = new MoveResult(getUser().getName(), benched.getName(), "Switch Failed", 0, 0);
+            message = "switch out failed";
         }
-        return moveResult;  
+        return new SwitchResult(super.getUser().getName(), benched.getName(), result);
     }
 }

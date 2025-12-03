@@ -63,12 +63,10 @@ public class NextMove extends BattleAction {
     } // END setTarget
 
     @Override
-    public MoveResult execute(BattleContext battleContext) {
+    public BattleResult execute(BattleContext battleContext) {
         // Implementation for executing the move
-        MoveResult result = new MoveResult(getUser().getName(), getTarget().getName(), move.getName(),0,0);
         if (getUser().isDefeated()) {
-            result.setIsTargetDead(true);
-            return result;
+            return new AttackResult(super.getUser().getName(), getTarget().getName(), getMove().getName(), 0,0, true);
         }
         int damage = 0;
         if (getMove().getCategory() == MoveCategory.PHYSICAL) {
@@ -77,9 +75,9 @@ public class NextMove extends BattleAction {
             damage = calculateDamage(getUser().getSpirit(), target.getDefence(), move.getPower());
         }
         getTarget().decreaseHP(damage);
-        result.setRemainingHealth(getTarget().getHP());
-        result.setDamage(damage);
-        return result;
+        int remainingHP= getTarget().getHP();
+        return new AttackResult(super.getUser().getName(), getTarget().getName(), getMove().getName(), 
+        damage,remainingHP, getTarget().isDefeated());
     }
 
     private int calculateDamage(int userStrength, int targetDefence, int movePower) {
