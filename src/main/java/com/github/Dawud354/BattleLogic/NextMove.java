@@ -78,6 +78,7 @@ public class NextMove extends BattleAction {
         }
         getTarget().decreaseHP(damage);
         result.setRemainingHealth(getTarget().getHP());
+        result.setDamage(damage);
         return result;
     }
 
