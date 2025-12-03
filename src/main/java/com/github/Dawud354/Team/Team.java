@@ -109,8 +109,14 @@ public class Team implements Iterable<YoKai> {
             return false;
         }
         // Swap active status
-        
-        return false;
+        if (active.contains((Integer) indexA)) {
+            active.remove((Integer) indexA);
+            active.add(indexB);
+        } else {
+            active.remove((Integer) indexB);
+            active.add(indexA);
+        }
+        return true;
     }
 
 
