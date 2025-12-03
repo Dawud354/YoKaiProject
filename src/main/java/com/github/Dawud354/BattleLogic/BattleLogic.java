@@ -52,23 +52,18 @@ public class BattleLogic {
         return getPlayerTeam().isTeamDefeated() || getEnemyTeam().isTeamDefeated();
     }
 
-    public boolean addUserMove(YoKai user, Move move, YoKai target) {
+    public boolean addUserMove(IntentMessage intentMessage) {
         // Check if the user is in the player's team, move is valid and target is in the enemy team
         // then adds move to the queue
         if (nextMoves.size()>=3 || canAdd == false){
             return false;
         }
-        boolean added = false;
-        if (getPlayerTeam().contains(user) && user.isMoveInMoveset(move) && getEnemyTeam().contains(target)) {
-            NextMove nextMove = new NextMove(user, move, target);
-            nextMoves.add(nextMove);
-            added = true;
-            if (nextMoves.size() == 3) {
-                addEnemyMoves();
-                canAdd = false;
-            }
+        nextMoves.add(new ActionFactory().getAction(intentMessage));
+        if (nextMoves.size() == 3) {
+            addEnemyMoves();
+            canAdd = false;
         }
-        return added;
+        return true;
     }
 
     private void addEnemyMoves() {
