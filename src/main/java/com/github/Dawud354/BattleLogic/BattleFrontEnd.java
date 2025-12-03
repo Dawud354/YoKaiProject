@@ -43,7 +43,9 @@ public class BattleFrontEnd extends BaseTextProgram {
         String[] yoKaiHP = new  String[yoKaiNames.length];
         int i = 0;
         for (YoKai yk : team) {
-            if (yk.isDefeated()) {
+            if (!team.isActive(yk)) {
+                yoKaiHP[i] = "Benched";
+            } else if (yk.isDefeated()) {
                 yoKaiHP[i] = "Defeated";
             }
             else {
@@ -61,14 +63,54 @@ public class BattleFrontEnd extends BaseTextProgram {
         System.out.println();
     }
 
+
     private void askUserForMoves() {
-        for (YoKai user: battleLogic.getPlayerTeam()) {
+        int choice = 0;
+        for (YoKai user: battleLogic.getPlayerTeam().getActive()) {
             if (!user.isDefeated()) {
-                Move move = askUserForMove(user);
-                YoKai target = askForTarget(battleLogic.getEnemyTeam());
-                battleLogic.addUserMove(user, move, target);
+                print("What would you like to do for "+ user.getName());
+                print("1. Attack");
+                print("2. Switch YoKai");
+                choice = inputPositiveInt();
+                while (choice != 1 && choice !=2) {
+                    print("Invalid choice please enter only 1 or 2");
+                    choice = inputPositiveInt();
+                }
+                if (choice == 1){
+                    Move move = askUserForMove(user);
+                    YoKai target = askForTarget(battleLogic.getEnemyTeam());
+                    AttackIntentMessage attackIntent = new AttackIntentMessage(user, move, target);
+                    battleLogic.addUserMove(attackIntent);
+                } else if (choice == 2){
+                    YoKai benched = askWhoToSwitchWith();
+                    if (benched != null) {
+                        SwitchIntentMessage switchIntent = new SwitchIntentMessage(user, benched);
+                        battleLogic.addUserMove(switchIntent);
+                    }
+                }
             }
         }
+    }
+
+    private YoKai askWhoToSwitchWith(){
+        YoKai[] benched = battleLogic.getPlayerTeam().getBenched();
+        if (benched.length == 0) {
+            print("No benched YoKai available to switch with.");
+            return null;
+        }
+        print("Please select a benched yo kai from the list below.");
+        for (int i = 0; i < benched.length; i++) {
+            print((i + 1) + ". " + benched[i].getName());
+        }
+        int choice = 0;
+        print("Please enter the number of the YoKai you want to switch with: ");
+        choice = inputPositiveInt();
+        while (choice < 1 || choice > benched.length) {
+            print("Invalid choice please enter a number between 1 and " + benched.length);
+            choice = inputPositiveInt();
+        }
+        
+        return benched[choice - 1];
     }
 
     private Move askUserForMove(YoKai user) {
