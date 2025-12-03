@@ -191,6 +191,22 @@ public class Team implements Iterable<YoKai> {
     }
 
     /**
+     * Returns an array of benched YoKai in the team
+     * @return an array of benched YoKai
+     */
+    public YoKai[] getBenched(){
+        YoKai[] benchedYoKai = new YoKai[team.size() - active.size()];
+        int j = 0;
+        for (int i = 0; i < team.size(); i++) {
+            if (!active.contains(i)) {
+                benchedYoKai[j] = team.get(i);
+                j++;
+            }
+        }
+        return benchedYoKai;
+    }
+
+    /**
      * Checks if there are no active YoKai in the team
      * @return true if there are no active YoKai, false otherwise
      */
@@ -205,6 +221,14 @@ public class Team implements Iterable<YoKai> {
      */
     public boolean contains(YoKai yoKai){
         return team.contains(yoKai);
+    }
+
+    /**
+     * Returns true if passed in YoKai is active
+     */
+    public boolean isActive(YoKai yoKai) {
+        int index = team.indexOf(yoKai);
+        return active.contains(index);
     }
 
     @Override
