@@ -159,18 +159,29 @@ public class BattleFrontEnd extends BaseTextProgram {
     }
 
     private void executeAllMovesQueue() throws InterruptedException {
-        MoveResult moveResult = battleLogic.executeNextMove();
-        while (moveResult != null){
-            outputMoveToUser(moveResult);
-            moveResult = battleLogic.executeNextMove();
+        BattleResult result = battleLogic.executeNextMove();
+        while (result != null){
+            switch (result) {
+                case AttackResult ar -> outputMoveToUser(ar);
+                case SwitchResult sr -> outputSwitchToUser(sr);
+            }
+            result = battleLogic.executeNextMove();
         }
     }
 
-    private void outputMoveToUser(MoveResult moveResult) throws InterruptedException {
-        print(moveResult.getUserName()+" used "+moveResult.getMoveName()+" on "+moveResult.getTargetName());
+    private void outputSwitchToUser(SwitchResult sr){
+        if (sr.success()){
+            print("Switch was successful: " + sr.memberA() + " switched with " + sr.memberB());
+        }else{
+            print("Switch was not successful.");
+        }
+    }
+
+    private void outputMoveToUser(AttackResult ar) throws InterruptedException {
+        print(ar.userName()+" used "+ar.moveName()+" on "+ar.targetName());
         TimeUnit.SECONDS.sleep(1);
-        print(moveResult.getTargetName()+" took "+moveResult.getDamage()+" damage.");
-        print(moveResult.getTargetName()+" has "+moveResult.getRemainingHealth()+" HP.");
+        print(ar.targetName()+" took "+ar.damage()+" damage.");
+        print(ar.targetName()+" has "+ar.remainingHealth()+" HP.");
         TimeUnit.SECONDS.sleep(2);
     }
 
