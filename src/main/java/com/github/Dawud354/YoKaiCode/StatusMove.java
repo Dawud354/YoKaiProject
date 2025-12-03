@@ -1,6 +1,5 @@
 package com.github.Dawud354.YoKaiCode;
 
-import com.github.Dawud354.GeneralMethods.BaseTextProgram;
 
 /**
  * This class represents a status move that can be used in battle
