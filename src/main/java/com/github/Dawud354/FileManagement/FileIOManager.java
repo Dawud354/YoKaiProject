@@ -27,12 +27,13 @@ public class FileIOManager {
      * @param object The object to save.
      */
     public static <T> void save(String filePath, T object) {
-        File file = new File(filePath);
+        String fullPath = BASE_DIRECTORY + File.separator + filePath;
+        File file = new File(fullPath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdirs();
         }
-        JsonUtil.saveToJsonFile(filePath, object);
+        JsonUtil.saveToJsonFile(fullPath, object);
     }
 
 
@@ -45,8 +46,9 @@ public class FileIOManager {
      * @return The loaded object.
      */
     public static <T> T load(String filePath, Class<T> objectClass) {
-        System.out.println("Loading from file: " + filePath);
-        return JsonUtil.loadFromJsonFile(filePath, objectClass);
+        String fullPath = BASE_DIRECTORY + File.separator + filePath;
+        System.out.println("Loading from file: " + fullPath);
+        return JsonUtil.loadFromJsonFile(fullPath, objectClass);
     }
 
     /**
@@ -83,6 +85,7 @@ public class FileIOManager {
      */
     public static boolean doesFileExist(String filePath) {
         String fullPath = BASE_DIRECTORY + File.separator + filePath;
+        System.out.println("checking file " + fullPath);
         File file = new File(fullPath);
         return file.exists() && file.isFile();
     }
