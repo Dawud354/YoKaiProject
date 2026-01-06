@@ -1,5 +1,11 @@
-package com.github.Dawud354.BattleLogic;
+package com.TextBasedInterface;
 
+import com.github.Dawud354.BattleLogic.AttackIntentMessage;
+import com.github.Dawud354.BattleLogic.AttackResult;
+import com.github.Dawud354.BattleLogic.BattleLogic;
+import com.github.Dawud354.BattleLogic.BattleResult;
+import com.github.Dawud354.BattleLogic.SwitchIntentMessage;
+import com.github.Dawud354.BattleLogic.SwitchResult;
 import com.github.Dawud354.GeneralMethods.BaseTextProgram;
 import com.github.Dawud354.Team.EnemyTeam;
 import com.github.Dawud354.Team.PlayerTeam;

@@ -1,11 +1,12 @@
-import com.github.Dawud354.FileManagement.*;
 import com.github.Dawud354.GeneralMethods.BaseTextProgram;
 
+import java.util.Random;
+
 import com.github.Dawud354.YoKaiCode.*;
-
-import java.net.URL;
-
-import com.github.Dawud354.BattleLogic.*;
+import com.github.Dawud354.Team.PlayerTeam;
+import com.github.Dawud354.Team.EnemyTeam;
+import com.TextBasedInterface.BattleFrontEnd;
+import com.TextBasedInterface.SceneManager;
 
 
 /* ***************************************
@@ -16,41 +17,10 @@ import com.github.Dawud354.BattleLogic.*;
 public class Main extends BaseTextProgram {
     // calls other methods
     public static void main(String[] args) throws InterruptedException {
-
-if (isRunningFromJar()) {
-    System.out.println("Running from JAR");
-} else {
-    System.out.println("Running from IDE (or classes directory)");
-}
-
-
-        message();
-        startGame();
-
-    }
-public static boolean isRunningFromJar() {
-    String path = Main.class
-            .getProtectionDomain()
-            .getCodeSource()
-            .getLocation()
-            .getPath();
-
-    return path.endsWith(".jar");
-}
-
-
-
-    // message for user
-    public static void message(){
-        print("Welcome to YoKai Battle!");
-        print("This is a pre alpha version of the game.");
-        print("Please report any bugs to the developer.");
-        print("Here you will be able to pick 3 YoKai to battle against 3 enemy YoKai.");
-        print("The game will end when either your team or the enemy team is defeated.");
-        print("Good luck!");
-        print("--------------------");
+        SceneManager.goHome();
     }
 
+/* 
     public static void startGame() throws InterruptedException {
         Team playerTeam = getPlayerTeam();
         Team enemyTeam = getEnemyTeam();
@@ -104,4 +74,5 @@ public static boolean isRunningFromJar() {
         }
         return new Team(yoKaiArray);
     }
+        */
 }
