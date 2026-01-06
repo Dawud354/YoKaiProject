@@ -2,7 +2,9 @@ package com.github.Dawud354.FileManagement;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,7 +54,20 @@ public class JsonUtil {
         filePath = checkJsonFileName(filePath);
         try (FileReader reader = new FileReader(filePath)) {
             return gson.fromJson(reader, classType);
-        } catch (IOException e) {
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("Load failed: File not found at " + filePath);
+            return null;
+        } 
+        catch (JsonSyntaxException e) {
+            // File has some issues
+            System.err.println("Load failed: JSON is corrupted or improperly formatted.");
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e) {
+            // General case
+            System.err.println("Load failed: An unexpected I/O error occurred.");
             e.printStackTrace();
             return null;
         }
