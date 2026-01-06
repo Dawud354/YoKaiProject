@@ -64,4 +64,26 @@ public class FileIOManager {
         File directory = new File(directoryPath); 
         return directory.list();
     }
+
+    /**
+     * Checks if a folder exists at the specified relative path.
+     * @param folderPath The relative path to the folder.
+     * @return true if the folder exists, false otherwise.
+     */
+    public static boolean doesFolderExist(String folderPath) {
+        String directoryPath = BASE_DIRECTORY + File.separator + folderPath;
+        File directory = new File(directoryPath);
+        return directory.exists() && directory.isDirectory();
+    }
+
+    /**
+     * Checks if a file exists at the specified relative path.
+     * @param filePath The relative path to the file.
+     * @return true if the file exists, false otherwise.
+     */
+    public static boolean doesFileExist(String filePath) {
+        String fullPath = BASE_DIRECTORY + File.separator + filePath;
+        File file = new File(fullPath);
+        return file.exists() && file.isFile();
+    }
 }
