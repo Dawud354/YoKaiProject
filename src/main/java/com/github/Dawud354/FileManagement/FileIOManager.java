@@ -26,7 +26,7 @@ public class FileIOManager {
      * @param filePath The file path where the object will be saved.
      * @param object The object to save.
      */
-    public <T> void save(String filePath, T object) {
+    public static <T> void save(String filePath, T object) {
         File file = new File(filePath);
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
@@ -44,7 +44,7 @@ public class FileIOManager {
      * @param objectClass The class of the object to load.
      * @return The loaded object.
      */
-    public <T> T load(String filePath, Class<T> objectClass) {
+    public static <T> T load(String filePath, Class<T> objectClass) {
         System.out.println("Loading from file: " + filePath);
         return JsonUtil.loadFromJsonFile(filePath, objectClass);
     }
