@@ -1,0 +1,46 @@
+{
+  "name": "Jibanyan",
+  "tribe": "charming",
+  "stats": {
+    "health": {
+      "maxHP": {
+        "baseValue": 15
+      },
+      "currentHP": {
+        "baseValue": 15
+      }
+    },
+    "strength": {
+      "baseValue": 10
+    },
+    "spirit": {
+      "baseValue": 10
+    },
+    "speed": {
+      "baseValue": 15
+    },
+    "defence": {
+      "baseValue": 12
+    },
+    "friendshipValue": {
+      "baseValue": 19
+    }
+  },
+  "physicalMove": {
+    "name": "Tackle",
+    "description": "A physical move that deals damage",
+    "power": 40,
+    "accuracy": 100,
+    "category": "PHYSICAL"
+  },
+  "specialMove": {
+    "secondaryEffect": "LOWER_STAT",
+    "statToChange": "SPEED",
+    "changeAmount": 20,
+    "name": "Dark Sight",
+    "description": "A special move creeps up on the enemy from the darkness, lowering their speed",
+    "power": 50,
+    "accuracy": 90,
+    "category": "SPECIAL"
+  }
+}

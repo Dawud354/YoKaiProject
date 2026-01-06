@@ -1,0 +1,227 @@
+{
+  "playerName": "TestPlayer",
+  "playerTeam": {
+    "team": [
+      {
+        "name": "Whisper",
+        "tribe": "charming",
+        "stats": {
+          "health": {
+            "maxHP": {
+              "baseValue": 15
+            },
+            "currentHP": {
+              "baseValue": 15
+            }
+          },
+          "strength": {
+            "baseValue": 10
+          },
+          "spirit": {
+            "baseValue": 10
+          },
+          "speed": {
+            "baseValue": 15
+          },
+          "defence": {
+            "baseValue": 12
+          },
+          "friendshipValue": {
+            "baseValue": 19
+          }
+        },
+        "physicalMove": {
+          "name": "Rocket Punch",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "PHYSICAL"
+        },
+        "specialMove": {
+          "name": "Thunder Strike",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "SPECIAL"
+        }
+      },
+      {
+        "name": "Whisper",
+        "tribe": "charming",
+        "stats": {
+          "health": {
+            "maxHP": {
+              "baseValue": 15
+            },
+            "currentHP": {
+              "baseValue": 15
+            }
+          },
+          "strength": {
+            "baseValue": 10
+          },
+          "spirit": {
+            "baseValue": 10
+          },
+          "speed": {
+            "baseValue": 15
+          },
+          "defence": {
+            "baseValue": 12
+          },
+          "friendshipValue": {
+            "baseValue": 19
+          }
+        },
+        "physicalMove": {
+          "name": "Box",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "PHYSICAL"
+        },
+        "specialMove": {
+          "name": "Fireball",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "SPECIAL"
+        }
+      },
+      {
+        "name": "Komasan",
+        "tribe": "charming",
+        "stats": {
+          "health": {
+            "maxHP": {
+              "baseValue": 15
+            },
+            "currentHP": {
+              "baseValue": 15
+            }
+          },
+          "strength": {
+            "baseValue": 10
+          },
+          "spirit": {
+            "baseValue": 10
+          },
+          "speed": {
+            "baseValue": 15
+          },
+          "defence": {
+            "baseValue": 12
+          },
+          "friendshipValue": {
+            "baseValue": 19
+          }
+        },
+        "physicalMove": {
+          "name": "Slash",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "PHYSICAL"
+        },
+        "specialMove": {
+          "name": "Thunder Strike",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "SPECIAL"
+        }
+      },
+      {
+        "name": "Whisper",
+        "tribe": "charming",
+        "stats": {
+          "health": {
+            "maxHP": {
+              "baseValue": 15
+            },
+            "currentHP": {
+              "baseValue": 15
+            }
+          },
+          "strength": {
+            "baseValue": 10
+          },
+          "spirit": {
+            "baseValue": 10
+          },
+          "speed": {
+            "baseValue": 15
+          },
+          "defence": {
+            "baseValue": 12
+          },
+          "friendshipValue": {
+            "baseValue": 19
+          }
+        },
+        "physicalMove": {
+          "name": "Slash",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "PHYSICAL"
+        },
+        "specialMove": {
+          "name": "Earthquake",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "SPECIAL"
+        }
+      },
+      {
+        "name": "Whisper",
+        "tribe": "charming",
+        "stats": {
+          "health": {
+            "maxHP": {
+              "baseValue": 15
+            },
+            "currentHP": {
+              "baseValue": 15
+            }
+          },
+          "strength": {
+            "baseValue": 10
+          },
+          "spirit": {
+            "baseValue": 10
+          },
+          "speed": {
+            "baseValue": 15
+          },
+          "defence": {
+            "baseValue": 12
+          },
+          "friendshipValue": {
+            "baseValue": 19
+          }
+        },
+        "physicalMove": {
+          "name": "Rocket Punch",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "PHYSICAL"
+        },
+        "specialMove": {
+          "name": "Fireball",
+          "description": "null",
+          "power": 10,
+          "accuracy": 0,
+          "category": "SPECIAL"
+        }
+      }
+    ],
+    "active": [
+      0,
+      1,
+      2
+    ]
+  }
+}

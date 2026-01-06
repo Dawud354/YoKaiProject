@@ -1,39 +1,30 @@
 {
   "name": "Mad Mountain",
   "tribe": "Tough",
-  "health": {
-    "maxHP": {
-      "baseValue": 150
+  "stats": {
+    "health": {
+      "maxHP": {
+        "baseValue": 15
+      },
+      "currentHP": {
+        "baseValue": 15
+      }
     },
-    "currentHP": {
-      "baseValue": 150
+    "strength": {
+      "baseValue": 10
+    },
+    "spirit": {
+      "baseValue": 10
+    },
+    "speed": {
+      "baseValue": 15
+    },
+    "defence": {
+      "baseValue": 12
+    },
+    "friendshipValue": {
+      "baseValue": 19
     }
-  },
-  "strength": {
-    "baseValue": 30
-  },
-  "spirit": {
-    "baseValue": 10
-  },
-  "speed": {
-    "baseValue": 14
-  },
-  "defence": {
-    "baseValue": 20
-  },
-  "friendshipValue": {
-    "baseValue": 5
-  },
-  "foodPreferences": {
-    "favouriteFood": "meat",
-    "dislikedFood": "vegetables"
-  },
-  "equipment": {
-    "statModifiers": {
-      "STRENGTH": 10
-    },
-    "name": "Boulder",
-    "description": "A heavy boulder that increases strength"
   },
   "physicalMove": {
     "name": "Rock Smash",

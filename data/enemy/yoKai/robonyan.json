@@ -1,0 +1,38 @@
+{
+  "name": "Robonyan",
+  "tribe": "tough",
+  "stats": {
+    "health": {
+      "maxHP": {
+        "baseValue": 15
+      },
+      "currentHP": {
+        "baseValue": 15
+      }
+    },
+    "strength": {
+      "baseValue": 10
+    },
+    "spirit": {
+      "baseValue": 10
+    },
+    "speed": {
+      "baseValue": 15
+    },
+    "defence": {
+      "baseValue": 12
+    },
+    "friendshipValue": {
+      "baseValue": 19
+    }
+  },
+  "statusMove": {
+    "secondaryEffect": "CONFUSE",
+    "changeAmount": 0,
+    "name": "Confuse Ray",
+    "description": "A status move that confuses the opponent",
+    "power": 0,
+    "accuracy": 85,
+    "category": "SPECIAL"
+  }
+}

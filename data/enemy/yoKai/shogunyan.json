@@ -1,39 +1,30 @@
 {
   "name": "Shogunyan",
   "tribe": "brave",
-  "health": {
-    "maxHP": {
-      "baseValue": 130
+  "stats": {
+    "health": {
+      "maxHP": {
+        "baseValue": 15
+      },
+      "currentHP": {
+        "baseValue": 15
+      }
     },
-    "currentHP": {
-      "baseValue": 130
+    "strength": {
+      "baseValue": 10
+    },
+    "spirit": {
+      "baseValue": 10
+    },
+    "speed": {
+      "baseValue": 15
+    },
+    "defence": {
+      "baseValue": 12
+    },
+    "friendshipValue": {
+      "baseValue": 19
     }
-  },
-  "strength": {
-    "baseValue": 20
-  },
-  "spirit": {
-    "baseValue": 25
-  },
-  "speed": {
-    "baseValue": 25
-  },
-  "defence": {
-    "baseValue": 12
-  },
-  "friendshipValue": {
-    "baseValue": 12
-  },
-  "foodPreferences": {
-    "favouriteFood": "sushi",
-    "dislikedFood": "salad"
-  },
-  "equipment": {
-    "statModifiers": {
-      "STRENGTH": 15
-    },
-    "name": "Katana",
-    "description": "A katana that increases strength by 15"
   },
   "physicalMove": {
     "name": "Samurai Slash",

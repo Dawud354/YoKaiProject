@@ -1,39 +1,30 @@
 {
   "name": "Komasan",
   "tribe": "charming",
-  "health": {
-    "maxHP": {
-      "baseValue": 110
+  "stats": {
+    "health": {
+      "maxHP": {
+        "baseValue": 15
+      },
+      "currentHP": {
+        "baseValue": 15
+      }
     },
-    "currentHP": {
-      "baseValue": 110
+    "strength": {
+      "baseValue": 10
+    },
+    "spirit": {
+      "baseValue": 10
+    },
+    "speed": {
+      "baseValue": 15
+    },
+    "defence": {
+      "baseValue": 12
+    },
+    "friendshipValue": {
+      "baseValue": 19
     }
-  },
-  "strength": {
-    "baseValue": 12
-  },
-  "spirit": {
-    "baseValue": 18
-  },
-  "speed": {
-    "baseValue": 14
-  },
-  "defence": {
-    "baseValue": 8
-  },
-  "friendshipValue": {
-    "baseValue": 10
-  },
-  "foodPreferences": {
-    "favouriteFood": "ramen",
-    "dislikedFood": "burger"
-  },
-  "equipment": {
-    "statModifiers": {
-      "DEFENCE": 5
-    },
-    "name": "Shield",
-    "description": "A shield that increases defense by 5"
   },
   "physicalMove": {
     "name": "Horn Attack",
