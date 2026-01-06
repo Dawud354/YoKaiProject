@@ -100,17 +100,7 @@ public class JsonUtil {
         if (isValidJsonFileName(fileName)) {
             throw new IllegalArgumentException("Invalid file name.");
         }
-        fileName = normaliseFileName(fileName);
         return fileName;
     } // END checkJsonFileName
 
-    /**
-     * @since 1.0
-     * Normalise a file name to lowercase.
-     * @param fileName the file name to normalise
-     * @return the normalised file name
-     */
-    public static String normaliseFileName(String fileName) {
-        return fileName.toLowerCase();
-    } // END normaliseFileName
 }
