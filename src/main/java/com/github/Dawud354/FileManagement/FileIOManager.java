@@ -13,85 +13,55 @@ import java.util.jar.JarFile;
  * @version 1.0
  * @since 24/11/2024
  */
-public class FileIOManager<T> {
+public class FileIOManager {
 
     // Base directory for all game files
     private static final String BASE_DIRECTORY = "data";
 
-    // Ensure base directory exists
-    static {
-        File baseDir = new File(BASE_DIRECTORY);
-        if (!baseDir.exists()) {
-            baseDir.mkdirs(); // Create base directory if it doesn't exist
-        }
-    }
-
     /**
-     * Get the full file path for a given category and filename.
-     *
-     * @param category The category (e.g., "Yo Kai", "food", "items").
-     * @param fileName The name of the file (e.g., "pizza.json").
-     * @return The full file path.
+     * Saves an object to a specified file path in JSON format.
+     * Creates parent directories if they do not exist.
+     * 
+     * @param <T> The type of the object to save.
+     * @param filePath The file path where the object will be saved.
+     * @param object The object to save.
      */
-    public static String getFilePath(String category, String fileName) {
-        if (category == null || fileName == null) {
-            throw new IllegalArgumentException("Category and filename cannot be null.");
+    public <T> void save(String filePath, T object) {
+        File file = new File(filePath);
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
         }
-        String directoryPath = BASE_DIRECTORY + File.separator + category;
-        File directory = new File(directoryPath);
-
-        // Create category-specific directory if it doesn't exist
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        return directoryPath + File.separator + fileName;
-    } // END getFilePath
-
-    public void save(String name, T object) {
-        String filePath = getFilePath(object.getClass().getSimpleName().toLowerCase(), name);
         JsonUtil.saveToJsonFile(filePath, object);
     }
 
-    public T load(String name, Class<T> objectClass) {
-        String filePath = getFilePath(objectClass.getSimpleName().toLowerCase(), name);
+
+    /**
+     * Loads an object from a specified file path in JSON format.
+     * 
+     * @param <T> The type of the object to load.
+     * @param filePath The file path from which the object will be loaded.
+     * @param objectClass The class of the object to load.
+     * @return The loaded object.
+     */
+    public <T> T load(String filePath, Class<T> objectClass) {
         System.out.println("Loading from file: " + filePath);
         return JsonUtil.loadFromJsonFile(filePath, objectClass);
     }
 
-    public static String[] getAllFileNames(String category) {
-        String directoryPath = BASE_DIRECTORY + File.separator + category; 
+    /**
+     * Retrieves all file names from a specified directory.
+     * The file path is relative to the base directory.
+     * No need to pass in "data/folder1/folder2"
+     * Can just pass in "folder1/folder2"
+     * 
+     * @param filePath The directory from which to retrieve file names.
+     * @return An array of file names in the specified directory.
+     */
+    public static String[] getAllFileNames(String filePath) {
+        String directoryPath = BASE_DIRECTORY + File.separator + filePath; 
         System.out.println("Getting all file names from directory: " + directoryPath); 
         File directory = new File(directoryPath); 
         return directory.list();
-        /*
-        try {
-            ClassLoader loader = FileIOManager.class.getClassLoader();
-            URL url = loader.getResource(path);
-
-            if (url != null && url.getProtocol().equals("file")) {
-                // Running in IDE
-                return new File(url.toURI()).list();
-            } else {
-                // Running from a JAR
-                String jarPath = path + "/";
-                List<String> fileNames = new ArrayList<>();
-
-                JarFile jar = new JarFile(
-                        new File(FileIOManager.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
-
-                jar.stream()
-                        .filter(e -> e.getName().startsWith(jarPath) && !e.isDirectory())
-                        .forEach(e -> fileNames.add(
-                                e.getName().substring(jarPath.length())));
-
-                jar.close();
-                return fileNames.toArray(new String[0]);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new String[0];
-        }
-    */
     }
 }
